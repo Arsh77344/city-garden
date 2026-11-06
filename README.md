@@ -100,6 +100,41 @@ alone so their own scroll math stays exact). Change a section's theme by editing
 Tiles cascade in with a staggered delay, tilt gently toward the cursor on desktop, and the lightbox now has a
 blurred cinematic backdrop of the current photo plus a directional slide when you move next/previous.
 
+## Review page (/review/)
+
+`review/index.html` is a standalone page for collecting Google reviews. Point your QR code at
+**https://www.citygarden.co.in/review/** — it needs no other link to work, and it's also in the
+site footer as "Share a review".
+
+How it works: the guest picks a rating, ticks the parts of the day they actually experienced,
+optionally adds a line in their own words (typing or voice), and the page drafts a review from
+those answers. They can edit every word, switch length (short/medium/long), or ask for a
+different version. "Copy review & open Google" copies the text and opens your Google review
+form, where they choose their own star rating and publish. **Nothing is ever posted automatically.**
+
+Deliberate choices worth keeping:
+- Every rating takes the same route to Google, and the private-email option is offered to
+  everyone. Filtering unhappy guests away from Google breaks Google's policies and can get a
+  listing penalised, so the flow doesn't do it.
+- Search phrases are capped at two per review, never on 1–2 star reviews, and never twice on the
+  same noun. Google removes reviews that read like advertisements, so restraint protects the listing.
+- The page writes nothing the guest didn't tell it. No invented guest counts, dates or dishes.
+- The page is `noindex` (it's a utility page, thin on content) and is not in `sitemap.xml`.
+  The footer link is still followed.
+
+To change the Google link, the email, or the wording, everything is at the top of the `<script>`
+block in `review/index.html` under `BUSINESS`.
+
+### Optional: let an AI model write the drafts
+The page drafts on the device by default — instant, free, works offline, no account needed.
+If you'd rather have a model write them, deploy `review/ai-worker.example.js` (a Cloudflare
+Worker; instructions are in the file, about five minutes) and set `aiEndpoint` in
+`review/index.html` to its URL. If the endpoint is slow, down, or out of credit, the page
+falls back to local drafting and the guest sees nothing unusual.
+
+**Never put an API key into `review/index.html`.** It's a public file — anyone can read it in
+the page source and spend your credit. That's the only reason the Worker exists.
+
 ## Screen sizes
 One responsive site, no separate mobile file:
 - Phone (under 600px): stacked layout, swipe carousels, Call/WhatsApp bar at the bottom.

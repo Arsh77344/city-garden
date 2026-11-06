@@ -1,0 +1,879 @@
+<!DOCTYPE html>
+<html lang="en-IN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#F4EDE3">
+<title>Share your experience | City Garden, Varanasi</title>
+<meta name="description" content="Tell us how your celebration at City Garden went. We'll turn your notes into a review draft you can edit and post yourself.">
+<!-- Utility page reached by QR code at the venue: useful to visitors, but thin for search,
+     so it stays out of the index and out of sitemap.xml. The footer link is still followed. -->
+<meta name="robots" content="noindex, follow">
+<link rel="icon" href="../images/logo-emblem.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --burg:#31070F; --wine:#570E20; --ivory:#F4EDE3; --parch:#EDE0C9; --paper:#FFFDFA;
+  --gold:#B89561; --gold-lt:#DCBB7E; --gold-dk:#8E6A3A; --gold-soft:#F6EDDC;
+  --ink:#2A1A1B; --muted:rgba(42,26,27,.72); --faint:rgba(42,26,27,.5);
+  --line:rgba(87,14,32,.15); --line-2:rgba(87,14,32,.28);
+  --green:#315044; --green-soft:#EDF3EF;
+  --serif:"Cormorant Garamond",Georgia,"Times New Roman",serif;
+  --sans:"DM Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --ease:cubic-bezier(.22,.8,.2,1);
+  --sh-sm:0 1px 2px rgba(42,26,27,.05);
+  --sh-md:0 14px 36px -26px rgba(49,7,15,.4),0 2px 7px rgba(42,26,27,.05);
+  --sh-lg:0 28px 70px -34px rgba(49,7,15,.45);
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;min-height:100%;overflow-x:hidden}
+body{
+  background:radial-gradient(circle at 50% -10%,rgba(184,149,97,.16),transparent 36%),
+             linear-gradient(180deg,#F6EFE6 0%,#EADFD1 100%);
+  color:var(--ink);font-family:var(--sans);font-size:16px;min-height:100dvh;
+  -webkit-font-smoothing:antialiased;display:flex;justify-content:center;
+}
+button,textarea,input{font:inherit}
+button{touch-action:manipulation}
+.serif{font-family:var(--serif)}
+.shell{width:100%;max-width:500px;min-height:100dvh;background:var(--ivory);position:relative;overflow:hidden;display:flex;flex-direction:column}
+.shell::before{content:"";position:absolute;inset:0 0 auto;height:200px;pointer-events:none;
+  background:radial-gradient(circle at 16% 0%,rgba(184,149,97,.16),transparent 44%),
+             radial-gradient(circle at 88% 8%,rgba(87,14,32,.08),transparent 40%)}
+@media(min-width:560px){
+  body{padding:30px 16px;align-items:flex-start}
+  .shell{min-height:min(880px,calc(100dvh - 60px));border:1px solid rgba(184,149,97,.5);border-radius:26px;box-shadow:var(--sh-lg)}
+}
+/* Brand */
+.brandbar{position:relative;z-index:2;display:flex;align-items:center;gap:12px;padding:16px 20px 10px}
+.brand-logo{display:block;width:62px;height:auto;flex:none}
+.brand-name{font-family:var(--serif);font-size:19px;font-weight:500;line-height:1.1;letter-spacing:.01em;color:var(--burg)}
+.brand-loc{font-size:10px;color:var(--faint);text-transform:uppercase;letter-spacing:.14em;margin-top:3px}
+.backbtn{margin-left:auto;width:38px;height:38px;border-radius:50%;border:1px solid var(--line);background:rgba(255,253,250,.75);color:var(--muted);display:grid;place-items:center;cursor:pointer;transition:.18s var(--ease)}
+.backbtn:hover{border-color:var(--line-2);color:var(--ink)}
+/* Progress */
+.progress{position:relative;z-index:2;display:grid;grid-template-columns:repeat(4,1fr);gap:7px;padding:2px 20px 4px}
+.progress span{height:3px;border-radius:99px;background:rgba(87,14,32,.12)}
+.progress span.on{background:linear-gradient(90deg,var(--wine),var(--gold))}
+.progress-meta{padding:3px 20px 0;color:var(--faint);font-size:11px;letter-spacing:.05em;display:flex;justify-content:flex-end}
+/* Layout */
+.main{position:relative;z-index:1;flex:1;padding:16px 20px 22px;display:flex;flex-direction:column}
+.foot{position:relative;z-index:2;padding:0 20px calc(20px + env(safe-area-inset-bottom));background:linear-gradient(180deg,rgba(244,237,227,0),var(--ivory) 26%)}
+.kicker{color:var(--wine);font-size:10.5px;text-transform:uppercase;letter-spacing:.16em;font-weight:600;margin-bottom:6px}
+h1{font-family:var(--serif);font-size:32px;font-weight:500;line-height:1.14;letter-spacing:-.01em;margin:4px 0 9px;color:var(--burg)}
+.sub{color:var(--muted);font-size:14.5px;line-height:1.56;margin:0 0 20px}
+.note{display:flex;gap:9px;align-items:flex-start;background:rgba(255,253,250,.72);border:1px solid var(--line);border-radius:13px;padding:11px 12px;color:var(--muted);font-size:12.5px;line-height:1.45;margin-top:16px}
+.note svg{color:var(--gold-dk);flex:none;margin-top:1px}
+/* Ornament */
+.orn{display:flex;align-items:center;gap:10px;max-width:170px;margin:20px auto}
+.orn::before,.orn::after{content:"";height:1px;background:var(--line-2);flex:1}
+.orn i{width:6px;height:6px;border:1px solid var(--gold);transform:rotate(45deg)}
+/* Welcome */
+.welcome{justify-content:center;text-align:center;padding-top:36px}
+.welcome img{width:150px;height:auto;margin:0 auto 20px;display:block}
+.welcome h1{font-size:37px;margin-bottom:6px}
+.welcome .sub{max-width:330px;margin:0 auto}
+/* Experience */
+.exp-list{display:grid;gap:9px}
+.exp{width:100%;min-height:62px;border:1px solid var(--line);border-radius:16px;background:rgba(255,253,250,.94);display:flex;align-items:center;gap:13px;padding:13px 14px;cursor:pointer;color:var(--ink);box-shadow:var(--sh-sm);text-align:left;transition:.16s var(--ease)}
+.exp:hover{border-color:var(--line-2)}
+.exp:active{transform:scale(.988)}
+.exp.sel{border-color:var(--gold);box-shadow:0 0 0 3px var(--gold-soft)}
+.exp-emoji{font-size:23px;width:29px;text-align:center}
+.exp-copy{display:flex;flex-direction:column;gap:3px}
+.exp-title{font-weight:600;font-size:15px}
+.exp-stars{display:flex;gap:2px;color:var(--gold);height:12px}
+.exp-arrow{margin-left:auto;color:rgba(42,26,27,.3)}
+/* Chips */
+.chips{display:flex;flex-wrap:wrap;gap:9px}
+.chip{border:1px solid var(--line);background:rgba(255,253,250,.94);color:var(--ink);border-radius:999px;padding:11px 14px;display:inline-flex;align-items:center;gap:7px;font-size:14px;cursor:pointer;transition:.15s var(--ease);box-shadow:var(--sh-sm)}
+.chip:active{transform:scale(.97)}
+.chip.on{border-color:var(--gold);background:var(--gold-soft);color:#3A2B1C}
+.chip-ico{display:grid;place-items:center;width:17px}
+.count{font-size:12px;color:var(--faint);margin-top:13px}
+/* Textarea */
+.ta{width:100%;min-height:142px;border:1px solid var(--line);border-radius:16px;background:var(--paper);padding:15px 16px;color:var(--ink);font-size:15.5px;line-height:1.56;resize:vertical;box-shadow:var(--sh-sm)}
+.ta:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 3px var(--gold-soft)}
+.ta::placeholder{color:rgba(42,26,27,.42)}
+.mic{margin-top:11px;border:1px dashed var(--line-2);border-radius:999px;background:transparent;color:var(--muted);padding:10px 14px;display:inline-flex;align-items:center;gap:8px;font-size:13.5px;cursor:pointer}
+.mic.rec{border-style:solid;border-color:var(--wine);color:var(--wine);animation:pulse 1.4s infinite}
+@keyframes pulse{50%{opacity:.55}}
+/* Buttons */
+.btn{width:100%;min-height:52px;border-radius:14px;border:1px solid transparent;padding:13px 16px;display:flex;align-items:center;justify-content:center;gap:9px;font-weight:600;font-size:15px;cursor:pointer;text-decoration:none;transition:.15s var(--ease)}
+.btn:active{transform:scale(.99)}
+.btn-primary{background:var(--wine);color:#fff;box-shadow:0 12px 24px -18px rgba(83,16,26,.85)}
+.btn-primary:hover{background:var(--burg)}
+.btn-primary:disabled{opacity:.35;box-shadow:none;cursor:not-allowed}
+.btn-gold{background:linear-gradient(135deg,#E2C389,#B89561 55%,#9C7A47);color:var(--burg);border-color:#A98449;box-shadow:0 12px 26px -18px rgba(82,57,20,.8)}
+.btn-ghost{background:rgba(255,253,250,.75);border-color:var(--line);color:var(--ink)}
+.btn-ghost:hover{border-color:var(--line-2)}
+.btn-link{background:none;border:0;color:var(--muted);font-size:12.5px;text-decoration:underline;text-underline-offset:3px;cursor:pointer;padding:10px;width:100%}
+.btn-row{display:flex;gap:9px}.btn-row .btn{flex:1}
+.hint{text-align:center;color:var(--faint);font-size:11.5px;line-height:1.45;margin-top:9px}
+/* Generating */
+.gen{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:20px}
+.ring{width:56px;height:56px;border-radius:50%;border:1.5px solid var(--line-2);border-top-color:var(--wine);border-right-color:var(--gold);animation:spin 1s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.gen-title{font-family:var(--serif);font-size:22px;font-weight:500}
+.gen-sub{color:var(--muted);font-size:13px;margin-top:6px}
+.shim{height:8px;border-radius:99px;background:linear-gradient(90deg,var(--line),var(--gold-soft),var(--line));background-size:240% 100%;animation:sh 1.3s linear infinite;margin:10px auto 0;width:200px}
+.shim.sm{width:145px;margin-top:7px}
+@keyframes sh{to{background-position:-120% 0}}
+/* Review card */
+.card{background:var(--paper);border:1px solid var(--line);border-radius:20px;padding:18px;box-shadow:var(--sh-md)}
+.card-top{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:12px}
+.stars{display:flex;gap:3px;color:var(--gold)}
+.stars svg.off{opacity:.2}
+.badge{font-size:10px;text-transform:uppercase;letter-spacing:.11em;color:var(--faint);border:1px solid var(--line);border-radius:999px;padding:5px 9px}
+.review-text{font-family:var(--serif);font-size:18.5px;line-height:1.56;white-space:pre-wrap;color:#2D2322}
+.review-edit{min-height:200px;background:#FFFEFC;box-shadow:none;font-family:var(--sans);font-size:15.5px}
+.card-meta{display:flex;justify-content:space-between;color:var(--faint);font-size:11px;margin-top:13px}
+.tone-wrap{margin-top:16px}
+.eyebrow{font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--faint);margin-bottom:8px}
+.tones{display:flex;padding:3px;border-radius:999px;border:1px solid var(--line);background:var(--parch);width:max-content;max-width:100%}
+.tone{border:0;background:transparent;color:var(--muted);border-radius:999px;padding:7px 13px;cursor:pointer;font-size:12.5px;white-space:nowrap}
+.tone.on{background:var(--paper);color:var(--ink);box-shadow:var(--sh-sm);font-weight:600}
+/* Share */
+.ok{display:flex;align-items:center;gap:8px;padding:11px 12px;border-radius:13px;background:var(--green-soft);color:var(--green);font-size:12.5px;border:1px solid #D9E6DE;margin-top:12px}
+.spacer{flex:1;min-height:20px}
+.priv{border:1px solid var(--line);border-radius:16px;background:rgba(255,253,250,.72);padding:13px 14px;color:var(--muted);font-size:12.5px;line-height:1.5;margin-top:14px}
+/* Success */
+.success{justify-content:center;text-align:center}
+.tick{width:68px;height:68px;border-radius:50%;background:var(--gold-soft);color:var(--gold-dk);display:grid;place-items:center;margin:0 auto 20px;border:1px solid #E9D6B6}
+.success h1{font-size:34px}
+.success .sub{max-width:330px;margin:0 auto}
+.toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom));transform:translateX(-50%);background:var(--burg);color:#F4EDE3;padding:11px 16px;border-radius:999px;font-size:12.5px;box-shadow:var(--sh-lg);z-index:20;white-space:nowrap;max-width:calc(100vw - 32px);overflow:hidden;text-overflow:ellipsis}
+.fade{animation:fade .34s var(--ease) both}
+@keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="shell" id="shell"></div>
+
+<script>
+(() => {
+'use strict';
+
+/* ============================================================
+   City Garden — review helper
+   Collects the guest's own rating, topics and words, drafts a
+   review from THEM, and hands it to Google for them to post.
+   Nothing is ever posted automatically, and every rating takes
+   the same route to Google.
+   ============================================================ */
+
+const BUSINESS = {
+  name: "City Garden",
+  email: "contact@citygarden.co.in",
+  // Google Business Profile "write a review" link for City Garden.
+  googleReviewUrl: "https://search.google.com/local/writereview?placeid=ChIJe-r5UXUujjkRx3mUWUfEExk",
+  // OPTIONAL: URL of your own small server endpoint that calls an AI model.
+  // Leave it "" and the page drafts locally (instant, free, no key needed).
+  // See ai-worker.example.js in this folder. Never put an API key in this file —
+  // it is public, and anyone could read it straight out of the page source.
+  aiEndpoint: ""
+};
+
+const S = { WELCOME:0, EXPERIENCE:1, TOPICS:2, DETAILS:3, GENERATING:4, REVIEW:5, SHARE:6, PRIVATE:7, SUCCESS:8 };
+
+const EXPERIENCES = [
+  { id:"excellent", emoji:"😍", label:"Excellent",       stars:5 },
+  { id:"verygood",  emoji:"😊", label:"Very good",       stars:4 },
+  { id:"okay",      emoji:"🙂", label:"It was okay",     stars:3 },
+  { id:"notgreat",  emoji:"😕", label:"Could be better", stars:2 },
+  { id:"poor",      emoji:"🙁", label:"Poor",            stars:1 }
+];
+
+const TOPICS = [
+  { id:"decor",       emoji:"✨",  label:"Décor & lighting",     keys:["decor","décor","decoration","lighting","lights","stage","flower"] },
+  { id:"food",        emoji:"🍽️", label:"Food & catering",       keys:["food","catering","menu","dinner","meal","khana"] },
+  { id:"space",       emoji:"🌿",  label:"Space & lawn",          keys:["space","lawn","garden","hall","ground","spacious"] },
+  { id:"staff",       emoji:"🤝",  label:"Staff & coordination",  keys:["staff","team","manager","service","coordination","helpful"] },
+  { id:"parking",     emoji:"🅿️", label:"Parking",               keys:["parking","car","vehicle","valet"] },
+  { id:"location",    emoji:"📍",  label:"Location & access",     keys:["location","road","traffic","station","reach","access"] },
+  { id:"cleanliness", emoji:"🧹",  label:"Cleanliness",           keys:["clean","hygiene","maintained","tidy"] },
+  { id:"value",       emoji:"₹",   label:"Value for money",       keys:["price","pricing","value","budget","cost","rate"] },
+  { id:"other",       emoji:"💬",  label:"Something else",        keys:[] }
+];
+
+/* ---- Clause banks. Fragments, not sentences, so they can be combined. ---- */
+const CLAUSES = {
+  decor: {
+    pos:["the décor and lighting looked beautiful","the stage decoration was done really well","the lighting gave the whole evening a warm feel","the flowers and drapes were lovely","the decoration was exactly what we had pictured"],
+    mid:["the décor was decent","the decoration was fine, though it could go a step further","the stage setup worked well enough"],
+    neg:["the décor and lighting could have been handled better","the decoration did not match what we had discussed","the stage and lighting needed more attention"]
+  },
+  food: {
+    pos:["the food was good and the catering ran smoothly","guests were happy with the food","the catering was well managed through the evening","the menu was handled nicely"],
+    mid:["the food was okay","the catering was a mixed experience","the food service was acceptable"],
+    neg:["the food and catering could be much better","the catering fell short for us","the food service did not go as planned"]
+  },
+  space: {
+    pos:["the lawn is genuinely spacious","there was plenty of room for all our guests","the open lawn suited our gathering well","the lawn and hall together gave us enough space"],
+    mid:["the space was adequate for our function","the layout was manageable","the lawn worked, though it felt tight at peak time"],
+    neg:["the space did not work as well as we expected","guest movement became difficult in places","the layout could be planned better"]
+  },
+  staff: {
+    pos:["the staff were helpful throughout","the team cooperated with us at every step","coordination on the day was smooth","the team was responsive whenever we needed something"],
+    mid:["the staff were generally okay","coordination was acceptable","the team managed, though a little more attention would help"],
+    neg:["coordination could have been much better","we had to follow up repeatedly on small things","the service on the day needs improvement"]
+  },
+  parking: {
+    pos:["parking was convenient for our guests","there was enough parking space","arrival and parking were easy to manage"],
+    mid:["parking was manageable","the parking worked, though it could be smoother"],
+    neg:["parking was not well organised","guest parking could be handled better"]
+  },
+  location: {
+    pos:["the location is easy to reach","guests found it simple to get to","being on the main road made it convenient for everyone"],
+    mid:["the location was reasonably convenient","getting there was manageable"],
+    neg:["reaching the venue was less convenient than we expected","the arrival experience could be improved"]
+  },
+  cleanliness: {
+    pos:["the venue was clean and well kept","everything felt neat and cared for","the spaces we used were properly maintained"],
+    mid:["the venue was reasonably maintained","cleanliness was fine overall"],
+    neg:["cleanliness and upkeep need attention","a few areas could have been kept much better"]
+  },
+  value: {
+    pos:["it felt like fair value for what we got","the pricing was reasonable for the scale of the function","we felt we got our money's worth"],
+    mid:["the value felt about right","pricing and experience balanced out"],
+    neg:["the value did not quite match the cost","it felt expensive for the experience we had"]
+  }
+};
+
+const OPENERS = {
+  excellent:["We had a wonderful experience at City Garden","City Garden gave us a truly memorable celebration","We are really glad we chose City Garden","City Garden turned out to be a lovely choice"],
+  verygood:["We had a very good experience at City Garden","City Garden worked out well for us","We were happy with how things went at City Garden"],
+  okay:["Our experience at City Garden was okay overall","City Garden was an average experience for us","We had a mixed experience at City Garden"],
+  notgreat:["Our experience at City Garden could have been better","A few things did not go well for us at City Garden","Our function at City Garden fell short in some areas"],
+  poor:["Unfortunately our experience at City Garden was disappointing","City Garden did not meet our expectations","We were let down by our experience at City Garden"]
+};
+
+const CLOSERS = {
+  pos:["Overall, a memorable evening for our family.","Overall we came away happy.","We would be glad to celebrate here again.","Thank you to the team for the effort."],
+  mid:["There were good parts along with a few things to fix.","Overall it was a mixed experience for us.","A few improvements would make a real difference."],
+  neg:["I hope the team takes this as useful feedback.","There is clear room for improvement here.","I hope this is sorted out for future guests."]
+};
+
+const FILLERS = {
+  pos:["The whole setup felt well planned and comfortable for guests.","From arrival to the end of the evening the atmosphere stayed warm and welcoming.","It is a practical choice for families who want a large celebration handled in one place.","Our guests mentioned more than once how nice the evening felt.","Everything ran to time, which took a lot of pressure off the family.","We had very little to chase on the day itself, and that counted for a lot.","For a function of this size, things stayed surprisingly calm and organised.","Elderly relatives and children were comfortable through the evening, which mattered to us."],
+  mid:["The venue has a good base to work with, and a little more polish would lift the whole experience.","There were things we appreciated and a few that could have been smoother.","Our experience sat somewhere in the middle, with both good moments and gaps.","Nothing went badly wrong, but a few things needed more follow-up than we expected.","It did the job for our function, though we had hoped for a little more.","With tighter coordination this could be a comfortable recommendation."],
+  neg:["A few operational details made the day less smooth than it should have been.","Better planning in the areas above would make a real difference for future guests.","The venue has potential, but the execution on our day needed more attention.","We are sharing specifics so the team knows where to focus.","For a function this size we expected the basics to be handled without us chasing them.","Guests noticed some of this on the day, which is what made it hard to overlook.","None of it was beyond fixing, which is the frustrating part.","We would want to see these things sorted before recommending it to family."]
+};
+
+/* ---- Search phrases, written the way a person would actually say them. ----
+   Used sparingly: at most one or two per review. A review stuffed with search
+   terms reads like an advertisement, and Google removes reviews that look
+   promotional, so restraint here protects the listing as well as the guest. */
+const KW = {
+  seeking: {
+    core:["a marriage lawn in Varanasi","a wedding venue in Varanasi","a banquet hall in Varanasi","a marriage hall in Varanasi","a wedding lawn in Varanasi","a wedding venue in Banaras"],
+    space:["a spacious wedding venue in Varanasi","a large marriage lawn in Varanasi","a wedding venue for a big gathering in Varanasi"],
+    decor:["a wedding venue with good decoration in Varanasi","a marriage lawn with proper stage and lighting in Varanasi"],
+    food:["a wedding venue with in-house catering in Varanasi","a marriage lawn with catering in Varanasi"],
+    parking:["a wedding venue with proper parking in Varanasi","a marriage lawn with parking in Varanasi"],
+    staff:["a full-service wedding venue in Varanasi","a wedding venue that handles everything in one place in Varanasi"],
+    rooms:["a wedding venue with guest rooms in Varanasi"]
+  },
+  occasion:{
+    reception:["a reception venue in Varanasi"],
+    engagement:["an engagement venue in Varanasi"],
+    sangeet:["a sangeet venue in Varanasi"],
+    mehendi:["a mehendi venue in Varanasi"],
+    haldi:["a venue for a haldi function in Varanasi"],
+    walima:["a walima venue in Varanasi"],
+    birthday:["a venue for a family function in Varanasi"],
+    anniversary:["a venue for a family function in Varanasi"],
+    wedding:["a wedding venue in Varanasi"]
+  },
+  local:{
+    chaukaghat:["a marriage lawn in Chaukaghat"],
+    cantt:["a wedding venue near Varanasi Cantt"],
+    andhrapull:["a marriage lawn near Andhrapull"]
+  },
+  rating:["one of the best marriage lawns in Varanasi","one of the best wedding venues in Varanasi","one of the best banquet halls in Varanasi","one of the better wedding venues we looked at in Varanasi"]
+};
+
+const OCCASIONS = [
+  [/\bwalima\b/,"walima"],[/\breception\b/,"reception"],[/\bsangeet\b/,"sangeet"],
+  [/\bmehendi|mehandi\b/,"mehendi"],[/\bhaldi\b/,"haldi"],
+  [/\bengagement|ring ceremony\b/,"engagement"],[/\bbirthday\b/,"birthday"],
+  [/\banniversary\b/,"anniversary"],[/\bwedding|shaadi|shadi|baraat|barat\b/,"wedding"]
+];
+
+const LENGTHS = {
+  short: { min:35,  max:55,  clauses:2, keywords:1 },
+  medium:{ min:70,  max:105, clauses:4, keywords:1 },
+  long:  { min:130, max:180, clauses:6, keywords:1 }
+};
+
+/* ------------------------- helpers ------------------------- */
+const wordCount = s => (s||"").trim().split(/\s+/).filter(Boolean).length;
+const pick = (a,i=0) => a && a.length ? a[((i % a.length)+a.length) % a.length] : "";
+const uniq = a => [...new Set(a.filter(Boolean))];
+const cap = s => s ? s[0].toUpperCase()+s.slice(1) : s;
+const esc = s => String(s==null?"":s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+
+function tidy(t){
+  let s=(t||"").trim().replace(/\s+/g," ");
+  if(!s) return "";
+  s=cap(s);
+  if(!/[.!?…]$/.test(s)) s+=".";
+  return s;
+}
+
+function detectOccasion(comment){
+  const s=(comment||"").toLowerCase();
+  for(const [re,name] of OCCASIONS) if(re.test(s)) return name;
+  return "";
+}
+
+function keywordPool({stars,topics,comment}){
+  const s=(comment||"").toLowerCase();
+  let pool=[...KW.seeking.core];
+  if(topics.includes("space"))   pool.push(...KW.seeking.space);
+  if(topics.includes("decor"))   pool.push(...KW.seeking.decor);
+  if(topics.includes("food"))    pool.push(...KW.seeking.food);
+  if(topics.includes("parking")) pool.push(...KW.seeking.parking);
+  if(topics.includes("staff"))   pool.push(...KW.seeking.staff);
+  if(/\broom|rooms|accommodation|stay\b/.test(s)) pool.push(...KW.seeking.rooms);
+  const occ=detectOccasion(comment);
+  if(occ && KW.occasion[occ]) pool.push(...KW.occasion[occ]);
+  if(/chaukaghat/.test(s))               pool.push(...KW.local.chaukaghat);
+  if(/cantt|cantonment/.test(s))         pool.push(...KW.local.cantt);
+  if(/andhrapull|andhra pull/.test(s))   pool.push(...KW.local.andhrapull);
+  return uniq(pool);
+}
+
+function keywordSentence(k,mood,v){
+  if(!k) return "";
+  if(mood==="pos") return pick([
+    `If you are looking for ${k}, this one is worth seeing.`,
+    `Worth a visit if you need ${k}.`,
+    `Easy to recommend to anyone searching for ${k}.`,
+    `We would suggest it to anyone looking for ${k}.`
+  ],v);
+  return `If you are comparing options for ${k}, do check the details that matter most to your function.`;
+}
+
+function ratingSentence(k,v){
+  return pick([`We would rate it ${k}.`,`For our family it is ${k}.`,`Going by our experience it is ${k}.`],v);
+}
+
+/* "marriage lawn in Varanasi" three times over reads like an advertisement and
+   is what gets a review taken down. Pick a rating phrase built on a different
+   noun from the one already used. */
+const headNoun = s => ((s||"").match(/marriage lawns?|wedding venues?|banquet halls?|marriage halls?|wedding lawns?/)||[""])[0].replace(/s\b/,"");
+function freshRating(usedPhrase,v){
+  const used=headNoun(usedPhrase);
+  const opts=KW.rating.filter(k=>headNoun(k)!==used);
+  return pick(opts.length?opts:KW.rating,v);
+}
+
+/* Join clause fragments into sentences, two at a time where they read well. */
+function sentencesFrom(clauses,variant){
+  const out=[]; let i=0;
+  while(i<clauses.length){
+    const a=clauses[i], b=clauses[i+1];
+    if(b && (i+variant)%2===0){ out.push(cap(a)+", and "+b+"."); i+=2; }
+    else { out.push(cap(a)+"."); i+=1; }
+  }
+  return out;
+}
+
+/* ---------------------- the local drafter ---------------------- */
+function draftReview({experience,topics,comment},length="medium",variant=0){
+  const exp = EXPERIENCES.find(e=>e.id===experience) || EXPERIENCES[1];
+  const mood = exp.stars>=4 ? "pos" : exp.stars===3 ? "mid" : "neg";
+  const rule = LENGTHS[length] || LENGTHS.medium;
+  const own = tidy(comment);
+  const lower = (comment||"").toLowerCase();
+  const occ = detectOccasion(comment);
+
+  // The occasion is detected only from the guest's own line, so repeating it in the
+  // opener would echo the sentence that follows. It steers keyword choice instead.
+  const parts=[pick(OPENERS[exp.id]||OPENERS.verygood, variant)+"."];
+
+  // The guest's own words come first — they are the real review.
+  if(own) parts.push(own);
+
+  // Only topics the guest ticked, and only those they have not already covered
+  // themselves, so the draft never repeats or contradicts their own sentence.
+  const usable = topics.filter(id => id!=="other" && CLAUSES[id]).filter(id=>{
+    const t=TOPICS.find(x=>x.id===id);
+    return !(t && t.keys.some(k=>lower.includes(k)));
+  });
+
+  const clauses=[];
+  if(usable.length){
+    for(let i=0;i<rule.clauses;i++){
+      const id=usable[i%usable.length];
+      const c=pick(CLAUSES[id][mood], variant+Math.floor(i/usable.length)+i);
+      if(c && !clauses.includes(c)) clauses.push(c);
+    }
+  }
+  parts.push(...sentencesFrom(clauses,variant));
+
+  // A light touch of search language, and none at all on 1–2 star reviews —
+  // promotional phrasing has no place in a complaint.
+  if(exp.stars>=3){
+    const pool=keywordPool({stars:exp.stars,topics,comment});
+    const used=[];
+    const want=Math.min(rule.keywords,pool.length);
+    for(let i=0;i<want;i++){
+      const k=pool[(variant*3+i*7)%pool.length];
+      const line=keywordSentence(k,mood,variant+i);
+      if(line && !used.includes(line)){ used.push(line); parts.push(line); }
+    }
+    if(exp.stars===5 && length==="long"){
+      parts.push(ratingSentence(freshRating(used[0]||"",variant),variant));
+    }
+  }
+
+  parts.push(pick(CLOSERS[mood],variant));
+
+  // Top up to the requested length with neutral lines that match the rating.
+  let f=variant;
+  while(wordCount(parts.join(" "))<rule.min && f<variant+12){
+    const line=pick(FILLERS[mood],f++);
+    if(line && !parts.includes(line)) parts.splice(Math.max(1,parts.length-1),0,line);
+    else break;
+  }
+
+  return parts.join(" ").replace(/\s+/g," ").trim();
+}
+
+/* ------- optional AI polish, if an endpoint has been configured ------- */
+async function aiDraft(payload){
+  if(!BUSINESS.aiEndpoint) return null;
+  const ctrl=new AbortController();
+  const timer=setTimeout(()=>ctrl.abort(),9000);
+  try{
+    const r=await fetch(BUSINESS.aiEndpoint,{
+      method:"POST",
+      headers:{"Content-Type":"application/json"},
+      body:JSON.stringify(payload),
+      signal:ctrl.signal
+    });
+    clearTimeout(timer);
+    if(!r.ok) return null;
+    const data=await r.json();
+    const text=String((data && (data.review||data.text)) || "").trim();
+    return (text && wordCount(text)>=20) ? text : null;
+  }catch(e){ clearTimeout(timer); return null; }
+}
+
+/* ------------------------- icons ------------------------- */
+const I = {
+  star:(off)=>`<svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"${off?' class="off"':''}><path d="m12 2 2.9 6.2 6.6.9-4.8 4.6 1.2 6.6L12 17.2 6.1 20.3l1.2-6.6L2.5 9.1l6.6-.9L12 2Z"/></svg>`,
+  chev:`<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>`,
+  back:`<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>`,
+  check:`<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>`,
+  info:`<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 11v5"/><path d="M12 8h.01"/></svg>`,
+  pencil:`<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>`,
+  refresh:`<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 0 1 15-6.7L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-15 6.7L3 16"/><path d="M3 21v-5h5"/></svg>`,
+  copy:`<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>`,
+  mic:`<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><path d="M12 19v3"/></svg>`,
+  google:`<svg width="18" height="18" viewBox="0 0 24 24"><path fill="#4285F4" d="M23 12.3c0-.8-.1-1.6-.2-2.3H12v4.4h6.2a5.3 5.3 0 0 1-2.3 3.5v2.9h3.7c2.2-2 3.4-5 3.4-8.5Z"/><path fill="#34A853" d="M12 23.5c3.1 0 5.7-1 7.6-2.8l-3.7-2.9c-1 .7-2.3 1.1-3.9 1.1-3 0-5.5-2-6.4-4.7H1.8v3A11.5 11.5 0 0 0 12 23.5Z"/><path fill="#FBBC05" d="M5.6 14.2a6.9 6.9 0 0 1 0-4.4v-3H1.8a11.5 11.5 0 0 0 0 10.4l3.8-3Z"/><path fill="#EA4335" d="M12 5.1c1.7 0 3.2.6 4.4 1.7l3.3-3.3A11.5 11.5 0 0 0 1.8 6.8l3.8 3C6.5 7.1 9 5.1 12 5.1Z"/></svg>`,
+  bigcheck:`<svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>`
+};
+const starRow = n => Array.from({length:5},(_,i)=>I.star(i>=n)).join("");
+
+/* ------------------------- state ------------------------- */
+const st = {
+  screen:S.WELCOME, experience:null, topics:[], comment:"",
+  length:"medium", variant:0, review:"", editing:false, edited:false,
+  privateText:"", posted:false, engine:"local"
+};
+const shell = document.getElementById("shell");
+const stars = () => (EXPERIENCES.find(e=>e.id===st.experience)||{}).stars || 5;
+
+function track(event,detail){
+  try{
+    window.dispatchEvent(new CustomEvent("citygarden:review",{detail:Object.assign({event},detail||{})}));
+    if(window.gtag) window.gtag("event","review_"+event,detail||{});
+  }catch(e){}
+}
+
+let toastTimer;
+function toast(msg){
+  const old=document.querySelector(".toast"); if(old) old.remove();
+  const el=document.createElement("div"); el.className="toast"; el.textContent=msg;
+  document.body.appendChild(el);
+  clearTimeout(toastTimer);
+  toastTimer=setTimeout(()=>el.remove(),2300);
+}
+
+function go(screen){ st.screen=screen; render(); window.scrollTo(0,0); }
+
+function copySync(text){
+  try{
+    const ta=document.createElement("textarea");
+    ta.value=text; ta.setAttribute("readonly","");
+    ta.style.cssText="position:fixed;left:-9999px;opacity:0";
+    document.body.appendChild(ta); ta.focus(); ta.select();
+    ta.setSelectionRange(0,ta.value.length);
+    const ok=document.execCommand("copy"); ta.remove(); return ok;
+  }catch(e){ return false; }
+}
+function copyAsync(text){
+  if(navigator.clipboard && window.isSecureContext) return navigator.clipboard.writeText(text);
+  return copySync(text) ? Promise.resolve() : Promise.reject(new Error("copy failed"));
+}
+
+/* ------------------------- screens ------------------------- */
+const BRAND = back => `
+  <div class="brandbar">
+    <img class="brand-logo" src="../images/logo.png" alt="" width="760" height="506">
+    <div>
+      <div class="brand-name">City Garden</div>
+      <div class="brand-loc">Marriage Lawn · Varanasi</div>
+    </div>
+    ${back?`<button class="backbtn" data-act="back" aria-label="Go back">${I.back}</button>`:""}
+  </div>`;
+
+const PROGRESS = step => !step ? "" : `
+  <div class="progress" aria-label="Step ${step} of 4">${[1,2,3,4].map(n=>`<span class="${n<=step?"on":""}"></span>`).join("")}</div>
+  <div class="progress-meta">${step} of 4</div>`;
+
+function screenWelcome(){
+  return `
+  <main class="main welcome">
+    <div class="fade">
+      <img src="../images/logo.png" alt="City Garden" width="760" height="506">
+      <div class="kicker">A small favour</div>
+      <h1>How was your celebration?</h1>
+      <div class="orn"><i></i></div>
+      <p class="sub">Tell us a few things and we'll turn them into a review you can edit and post on Google. Takes about 30 seconds.</p>
+    </div>
+  </main>
+  <div class="foot fade">
+    <button class="btn btn-primary" data-act="start">Share my experience ${I.chev}</button>
+    <div class="hint">No sign-up. Nothing is posted unless you post it yourself.</div>
+  </div>`;
+}
+
+function screenExperience(){
+  return `
+  <main class="main">
+    <div class="kicker">Your experience</div>
+    <h1>How was your time with us?</h1>
+    <p class="sub">Pick whichever one is actually true. Every answer takes the same route.</p>
+    <div class="exp-list fade">
+      ${EXPERIENCES.map(e=>`
+        <button class="exp${st.experience===e.id?" sel":""}" data-act="exp" data-id="${e.id}">
+          <span class="exp-emoji">${e.emoji}</span>
+          <span class="exp-copy">
+            <span class="exp-title">${e.label}</span>
+            <span class="exp-stars">${starRow(e.stars)}</span>
+          </span>
+          <span class="exp-arrow">${I.chev}</span>
+        </button>`).join("")}
+    </div>
+    <div class="note">${I.info}<span>Honest feedback helps us more than kind feedback. Say it as it was.</span></div>
+  </main>`;
+}
+
+function screenTopics(){
+  return `
+  <main class="main">
+    <div class="kicker">What stood out</div>
+    <h1>What do you remember most?</h1>
+    <p class="sub">Pick only the parts you actually experienced. We'll write about nothing else.</p>
+    <div class="chips fade">
+      ${TOPICS.map(t=>`
+        <button class="chip${st.topics.includes(t.id)?" on":""}" data-act="topic" data-id="${t.id}" aria-pressed="${st.topics.includes(t.id)}">
+          <span class="chip-ico">${st.topics.includes(t.id)?I.check:t.emoji}</span>${t.label}
+        </button>`).join("")}
+    </div>
+    <div class="count">${st.topics.length?`${st.topics.length} selected`:"Select at least one"}</div>
+  </main>
+  <div class="foot">
+    <button class="btn btn-primary" data-act="toDetails"${st.topics.length?"":" disabled"}>Continue ${I.chev}</button>
+  </div>`;
+}
+
+function screenDetails(){
+  return `
+  <main class="main">
+    <div class="kicker">In your own words</div>
+    <h1>Anything you'd like to add?</h1>
+    <p class="sub">Even one line makes the draft sound like you instead of like everyone else. Optional.</p>
+    <textarea class="ta fade" id="comment" placeholder="For example: we had our daughter's reception here in November, the lawn was full and the team managed everything…">${esc(st.comment)}</textarea>
+    <button class="mic" id="mic" data-act="mic">${I.mic}Speak instead</button>
+    <div class="hint" id="micMsg" style="text-align:left"></div>
+  </main>
+  <div class="foot">
+    <button class="btn btn-primary" data-act="generate">${st.comment.trim()?"Create my review":"Skip &amp; create my review"}</button>
+    <div class="hint">The draft only uses what you've told us on these screens.</div>
+  </div>`;
+}
+
+function screenGenerating(){
+  return `
+  <main class="main">
+    <div class="gen fade">
+      <div class="ring"></div>
+      <div>
+        <div class="gen-title" id="genLine">Turning your notes into a draft…</div>
+        <div class="gen-sub">You can change every word before anything is posted.</div>
+        <div class="shim"></div><div class="shim sm"></div>
+      </div>
+    </div>
+  </main>`;
+}
+
+function screenReview(){
+  const n=stars();
+  return `
+  <main class="main">
+    <div class="kicker">Your draft</div>
+    <h1>Make it sound like you.</h1>
+    <p class="sub">Read it once and change anything that isn't right. It's your review, not ours.</p>
+    <div class="card fade">
+      <div class="card-top">
+        <div class="stars">${starRow(n)}</div>
+        <span class="badge">Draft</span>
+      </div>
+      ${st.editing
+        ? `<textarea class="ta review-edit" id="reviewEdit">${esc(st.review)}</textarea>`
+        : `<div class="review-text">${esc(st.review)}</div>`}
+      <div class="card-meta">
+        <span>${wordCount(st.review)} words</span>
+        <span>${st.editing?"Editing":st.edited?"Edited by you":"Drafted from your answers"}</span>
+      </div>
+    </div>
+    <div class="note">${I.info}<span>Please remove anything that doesn't match what actually happened.</span></div>
+    <div class="tone-wrap">
+      <div class="eyebrow">Length</div>
+      <div class="tones">
+        ${[["short","Short"],["medium","Medium"],["long","Long"]].map(([id,label])=>
+          `<button class="tone${st.length===id?" on":""}" data-act="len" data-id="${id}">${label}</button>`).join("")}
+      </div>
+      <div class="hint" style="text-align:left;margin-top:7px">Short ~35–55 words · Medium ~70–105 · Long ~130–180</div>
+    </div>
+    <div class="btn-row" style="margin-top:14px">
+      <button class="btn btn-ghost" data-act="edit">${I.pencil}${st.editing?"Done":"Edit"}</button>
+      <button class="btn btn-ghost" data-act="again">${I.refresh}New version</button>
+    </div>
+  </main>
+  <div class="foot">
+    <button class="btn btn-primary" data-act="toShare"${st.review.trim()?"":" disabled"}>Looks right ${I.chev}</button>
+    <div class="hint">Nothing is posted until you post it on Google yourself.</div>
+  </div>`;
+}
+
+function screenShare(){
+  return `
+  <main class="main">
+    <div class="kicker">Ready to post</div>
+    <h1>Copy it, then open Google.</h1>
+    <p class="sub">We'll copy the text for you. On Google, choose your star rating, paste, read it once more and publish.</p>
+    <div class="card fade">
+      <div class="review-text" style="font-size:16px">${esc(st.review)}</div>
+      <div class="card-meta"><span>${wordCount(st.review)} words</span><span>Your review</span></div>
+    </div>
+    ${st.posted?`<div class="ok">${I.check}Copied. Google should have opened in a new tab.</div>`:""}
+    <div class="note">${I.info}<span>Google controls the final screen and your rating. This page can't post anything for you.</span></div>
+    <div class="spacer"></div>
+  </main>
+  <div class="foot">
+    <a class="btn btn-gold" id="googleBtn" href="${BUSINESS.googleReviewUrl}" target="_blank" rel="noopener noreferrer">${I.google}Copy review &amp; open Google</a>
+    <div style="height:9px"></div>
+    <button class="btn btn-ghost" data-act="copyOnly">${I.copy}Copy only</button>
+    ${st.posted?`<button class="btn-link" data-act="done">I've posted it</button>`:""}
+    <button class="btn-link" data-act="toPrivate">Prefer to tell us privately instead?</button>
+  </div>`;
+}
+
+function screenPrivate(){
+  return `
+  <main class="main">
+    <div class="kicker">Private note</div>
+    <h1>Send this straight to the team.</h1>
+    <p class="sub">This opens your email app. Nothing is posted publicly, and it's open to everyone whatever your rating.</p>
+    <textarea class="ta fade" id="privateText" placeholder="Anything you'd like the City Garden team to know…">${esc(st.privateText)}</textarea>
+    <div class="priv">This goes to <strong>${BUSINESS.email}</strong>. You'll be able to read it over in your email app before it sends.</div>
+  </main>
+  <div class="foot">
+    <button class="btn btn-primary" data-act="sendPrivate"${st.privateText.trim()?"":" disabled"}>Open email with my note</button>
+    <button class="btn-link" data-act="toShare">Back to the Google review</button>
+  </div>`;
+}
+
+function screenSuccess(){
+  return `
+  <main class="main success">
+    <div class="fade">
+      <div class="tick">${I.bigcheck}</div>
+      <div class="kicker">Thank you</div>
+      <h1>That means a lot.</h1>
+      <p class="sub">Thank you for taking a moment to share your experience with City Garden.</p>
+      <div class="orn"><i></i></div>
+      <a class="btn btn-ghost" href="../" style="margin-top:4px">Back to the website</a>
+    </div>
+  </main>`;
+}
+
+/* ------------------------- render ------------------------- */
+const STEP = {[S.EXPERIENCE]:1,[S.TOPICS]:2,[S.DETAILS]:3,[S.GENERATING]:4,[S.REVIEW]:4,[S.SHARE]:4,[S.PRIVATE]:4};
+const BACK = {[S.EXPERIENCE]:S.WELCOME,[S.TOPICS]:S.EXPERIENCE,[S.DETAILS]:S.TOPICS,[S.REVIEW]:S.DETAILS,[S.SHARE]:S.REVIEW,[S.PRIVATE]:S.SHARE};
+
+function render(){
+  const body = {
+    [S.WELCOME]:screenWelcome,[S.EXPERIENCE]:screenExperience,[S.TOPICS]:screenTopics,
+    [S.DETAILS]:screenDetails,[S.GENERATING]:screenGenerating,[S.REVIEW]:screenReview,
+    [S.SHARE]:screenShare,[S.PRIVATE]:screenPrivate,[S.SUCCESS]:screenSuccess
+  }[st.screen]();
+
+  shell.innerHTML =
+    (st.screen!==S.WELCOME ? BRAND(BACK[st.screen]!==undefined) : "") +
+    PROGRESS(STEP[st.screen]) + body;
+
+  const ta=document.getElementById("comment");
+  if(ta) ta.addEventListener("input",e=>{ st.comment=e.target.value; });
+
+  const re=document.getElementById("reviewEdit");
+  if(re){
+    re.focus();
+    re.addEventListener("input",e=>{ st.review=e.target.value; st.edited=true; });
+  }
+
+  const pt=document.getElementById("privateText");
+  if(pt) pt.addEventListener("input",e=>{
+    st.privateText=e.target.value;
+    const btn=document.querySelector('[data-act="sendPrivate"]');
+    if(btn) btn.disabled=!st.privateText.trim();
+  });
+
+  const g=document.getElementById("googleBtn");
+  if(g) g.addEventListener("click",()=>{
+    // Copy synchronously, inside the tap, while the browser still trusts us.
+    // The anchor handles navigation itself — more reliable than a JS redirect.
+    const ok=copySync(st.review);
+    if(!ok && navigator.clipboard && window.isSecureContext) navigator.clipboard.writeText(st.review).catch(()=>{});
+    track("open_google",{stars:stars(),copied:ok});
+    st.posted=true;
+    if(ok) toast("Review copied — opening Google");
+    setTimeout(render,400);
+  });
+}
+
+/* ------------------------- actions ------------------------- */
+const build = () => { st.review = draftReview(st,st.length,st.variant); st.edited=false; st.editing=false; };
+
+function confirmLoss(msg){ return !st.edited || window.confirm(msg); }
+
+async function generate(){
+  track("generate",{stars:stars(),topics:st.topics.length,hasComment:!!st.comment.trim()});
+  go(S.GENERATING);
+
+  const lines=["Turning your notes into a draft…","Keeping it close to what you told us…","Almost ready…"];
+  let li=0;
+  const spin=setInterval(()=>{
+    li=Math.min(li+1,lines.length-1);
+    const el=document.getElementById("genLine"); if(el) el.textContent=lines[li];
+  },650);
+
+  const started=Date.now();
+  const payload={
+    business:"City Garden, a marriage lawn and banquet hall in Chaukaghat, Varanasi",
+    stars:stars(),
+    experience:(EXPERIENCES.find(e=>e.id===st.experience)||{}).label||"",
+    topics:st.topics.map(id=>(TOPICS.find(t=>t.id===id)||{}).label).filter(Boolean),
+    comment:st.comment.trim(),
+    length:st.length,
+    targetWords:[LENGTHS[st.length].min,LENGTHS[st.length].max],
+    variant:st.variant,
+    keywords:keywordPool({stars:stars(),topics:st.topics,comment:st.comment}).slice(0,6)
+  };
+
+  let text=null;
+  try{ text=await aiDraft(payload); }catch(e){ text=null; }
+
+  st.engine = text ? "ai" : "local";
+  if(text){ st.review=text; st.edited=false; st.editing=false; }
+  else build();
+
+  clearInterval(spin);
+  const wait=Math.max(0,900-(Date.now()-started));
+  setTimeout(()=>{ track("drafted",{engine:st.engine,words:wordCount(st.review)}); go(S.REVIEW); },wait);
+}
+
+function startVoice(){
+  const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+  const msg=document.getElementById("micMsg");
+  const btn=document.getElementById("mic");
+  if(!SR){ if(msg) msg.textContent="Voice input isn't supported in this browser — typing works just as well."; return; }
+  const r=new SR();
+  r.lang="en-IN"; r.interimResults=false; r.maxAlternatives=1;
+  r.onresult=ev=>{
+    const t=ev.results[0][0].transcript;
+    st.comment=(st.comment?st.comment+" ":"")+t;
+    const ta=document.getElementById("comment"); if(ta) ta.value=st.comment;
+  };
+  r.onerror=()=>{ if(msg) msg.textContent="Couldn't catch that. Try again, or just type it."; if(btn) btn.classList.remove("rec"); };
+  r.onend=()=>{ if(btn){ btn.classList.remove("rec"); btn.innerHTML=I.mic+"Speak instead"; } };
+  if(msg) msg.textContent="";
+  if(btn){ btn.classList.add("rec"); btn.innerHTML=I.mic+"Listening… tap to stop"; }
+  r.start();
+}
+
+shell.addEventListener("click",e=>{
+  const el=e.target.closest("[data-act]"); if(!el) return;
+  const act=el.dataset.act, id=el.dataset.id;
+
+  if(act==="back"){ const b=BACK[st.screen]; if(b!==undefined) go(b); return; }
+  if(act==="start"){ track("start"); go(S.EXPERIENCE); return; }
+
+  if(act==="exp"){
+    st.experience=id;
+    track("rated",{stars:(EXPERIENCES.find(x=>x.id===id)||{}).stars});
+    render();
+    setTimeout(()=>go(S.TOPICS),150);
+    return;
+  }
+  if(act==="topic"){
+    st.topics = st.topics.includes(id) ? st.topics.filter(x=>x!==id) : st.topics.concat(id);
+    render(); return;
+  }
+  if(act==="toDetails"){ go(S.DETAILS); return; }
+  if(act==="mic"){ startVoice(); return; }
+  if(act==="generate"){ generate(); return; }
+
+  if(act==="len"){
+    if(!confirmLoss("Changing the length will replace the edits you made. Continue?")) return;
+    st.length=id; build(); render(); return;
+  }
+  if(act==="again"){
+    if(!confirmLoss("A new version will replace the edits you made. Continue?")) return;
+    st.variant++; build(); render(); track("new_version",{variant:st.variant}); return;
+  }
+  if(act==="edit"){ st.editing=!st.editing; render(); return; }
+  if(act==="toShare"){ go(S.SHARE); return; }
+  if(act==="copyOnly"){
+    copyAsync(st.review).then(()=>toast("Review copied")).catch(()=>toast("Select the text above and copy it"));
+    track("copy_only",{stars:stars()}); return;
+  }
+  if(act==="toPrivate"){
+    st.privateText = st.privateText || st.comment;
+    track("private_opened",{stars:stars()});
+    go(S.PRIVATE); return;
+  }
+  if(act==="sendPrivate"){
+    const subject=encodeURIComponent("Feedback for City Garden");
+    const body=encodeURIComponent(st.privateText.trim());
+    track("private_sent",{stars:stars()});
+    location.href=`mailto:${BUSINESS.email}?subject=${subject}&body=${body}`;
+    return;
+  }
+  if(act==="done"){ track("marked_posted",{stars:stars()}); go(S.SUCCESS); return; }
+});
+
+render();
+})();
+</script>
+</body>
+</html>
