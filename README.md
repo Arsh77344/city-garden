@@ -5,14 +5,19 @@ Plain HTML, CSS and JavaScript. No build step.
 ## Replace the placeholders
 All photos are in `images/`. Keep the same filename and just overwrite:
 
-| File | Where it appears |
-|---|---|
-| hero.jpg | Hero poster (shows until the hero video loads) |
-| about-1.jpg, about-2.jpg | About section |
-| lawn.jpg, banquet.jpg, stay.jpg, parking.jpg | Venue journey (horizontal scroll) |
-| catering.jpg, decor.jpg, coordination.jpg | Services (sticky image that swaps as you scroll) |
-| reel-1.jpg, reel-2.jpg, reel-3.jpg | Reel thumbnails |
-| g1.jpg ... g9.jpg | Gallery (any aspect ratio works) |
+| File | Where it appears | Status |
+|---|---|---|
+| hero.jpg | Social-share / link-preview image (`og:image`) only — not shown on the page itself | ✅ filled |
+| about-1.jpg, about-2.jpg | About section | ✅ filled |
+| lawn.jpg | Venue journey — open lawn | still placeholder, needs a real lawn photo |
+| banquet.jpg | Venue journey — indoor banquet hall | ✅ filled |
+| stay.jpg | Venue journey — guest rooms | still placeholder, needs a guest-room photo |
+| parking.jpg | Venue journey — entrance & parking | ✅ filled |
+| catering.jpg, decor.jpg, coordination.jpg | Services (sticky image that swaps as you scroll) | ✅ filled |
+| reel-1.jpg, reel-2.jpg, reel-3.jpg | Reel thumbnails (auto-generated from each video's first frame) | ✅ filled |
+| g8.jpg, g9.jpg | Gallery (any aspect ratio works) | still placeholder — g1–g7 are unused leftovers, the real gallery photos are `city-garden-*.jpg` |
+
+`images/hero-poster.jpg` is the hero **video's** poster (its own first frame) — don't hand-replace it, regenerate it from `videos/hero.mp4` if you change that video (see the Videos section below).
 
 ## Decorative artwork (already in place)
 
