@@ -9,13 +9,15 @@ All photos are in `images/`. Keep the same filename and just overwrite:
 |---|---|---|
 | hero.jpg | Social-share / link-preview image (`og:image`) only — not shown on the page itself | ✅ filled |
 | about-1.jpg, about-2.jpg | About section | ✅ filled |
-| lawn.jpg | Venue journey — open lawn | still placeholder, needs a real lawn photo |
+| lawn.jpg | Venue journey — open lawn | ✅ filled (frame grab from supplied footage) |
 | banquet.jpg | Venue journey — indoor banquet hall | ✅ filled |
-| stay.jpg | Venue journey — guest rooms | still placeholder, needs a guest-room photo |
+| stay.jpg | Venue journey — guest rooms | ⚠️ no real photo supplied — this is a styled on-brand graphic, not a photo. Replace with an actual guest-room photo. |
 | parking.jpg | Venue journey — entrance & parking | ✅ filled |
 | catering.jpg, decor.jpg, coordination.jpg | Services (sticky image that swaps as you scroll) | ✅ filled |
 | reel-1.jpg, reel-2.jpg, reel-3.jpg | Reel thumbnails (auto-generated from each video's first frame) | ✅ filled |
-| g8.jpg, g9.jpg | Gallery (any aspect ratio works) | still placeholder — g1–g7 are unused leftovers, the real gallery photos are `city-garden-*.jpg` |
+| g8.jpg, g9.jpg | Gallery (any aspect ratio works) | ✅ filled |
+
+No more bokeh "placeholder — replace with X.jpg" graphics remain, except `stay.jpg` (above). `g1.jpg`–`g7.jpg` were unused leftover placeholder files and have been deleted; the gallery's real photos are the `city-garden-*.jpg` files plus `g8.jpg`/`g9.jpg`.
 
 `images/hero-poster.jpg` is the hero **video's** poster (its own first frame) — don't hand-replace it, regenerate it from `videos/hero.mp4` if you change that video (see the Videos section below).
 
@@ -74,7 +76,14 @@ that before launch — otherwise re-encode it with `-an`.
 
 ## Section colours
 Each section has a `data-theme` (dark, wine, green, light, parch). As a section reaches the middle of the screen,
-the whole page background fades to that colour. Change a section's theme by editing its `data-theme` attribute.
+the whole page background fades to that colour (slowed slightly to 1.4s for a smoother morph), and several
+sections (Celebrations, Reels, Contact) now bloom with a faint theme-tinted glow as they take over. Most sections
+also ease upward into view as you scroll to them (the pinned venue journey and sticky services image are left
+alone so their own scroll math stays exact). Change a section's theme by editing its `data-theme` attribute.
+
+## Gallery
+Tiles cascade in with a staggered delay, tilt gently toward the cursor on desktop, and the lightbox now has a
+blurred cinematic backdrop of the current photo plus a directional slide when you move next/previous.
 
 ## Screen sizes
 One responsive site, no separate mobile file:

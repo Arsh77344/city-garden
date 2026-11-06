@@ -239,6 +239,18 @@
 
   /* ===================== Gallery filter + lightbox ===================== */
   const tiles = $$('.tile');
+  tiles.forEach((t, i) => t.style.setProperty('--i', i));
+  if (finePointer && !reduce) {
+    tiles.forEach(t => {
+      t.addEventListener('mousemove', e => {
+        const r = t.getBoundingClientRect();
+        const px = (e.clientX - r.left) / r.width - 0.5, py = (e.clientY - r.top) / r.height - 0.5;
+        t.style.setProperty('--rx', (px * 10).toFixed(2) + 'deg');
+        t.style.setProperty('--ry', (-py * 10).toFixed(2) + 'deg');
+      });
+      t.addEventListener('mouseleave', () => { t.style.removeProperty('--rx'); t.style.removeProperty('--ry'); });
+    });
+  }
   $$('.filters button').forEach(b => b.addEventListener('click', () => {
     $$('.filters button').forEach(x => x.classList.toggle('is-active', x === b));
     const f = b.dataset.filter;
@@ -256,19 +268,26 @@
 
   const lb = document.createElement('div');
   lb.className = 'lb'; lb.setAttribute('role', 'dialog'); lb.setAttribute('aria-modal', 'true'); lb.setAttribute('aria-label', 'Photo viewer');
-  lb.innerHTML = '<button class="lb-x" aria-label="Close">&times;</button><button class="lb-p" aria-label="Previous">&lsaquo;</button><button class="lb-n" aria-label="Next">&rsaquo;</button><img alt=""><p class="lb-count"></p>';
+  lb.innerHTML = '<div class="lb-bg"></div><button class="lb-x" aria-label="Close">&times;</button><button class="lb-p" aria-label="Previous">&lsaquo;</button><button class="lb-n" aria-label="Next">&rsaquo;</button><img alt=""><p class="lb-count"></p>';
   body.appendChild(lb);
-  const lbImg = $('img', lb), lbCount = $('.lb-count', lb);
+  const lbImg = $('img', lb), lbCount = $('.lb-count', lb), lbBg = $('.lb-bg', lb);
   let list = [], idx = 0;
   function show(i) {
+    const from = idx;
     idx = (i + list.length) % list.length;
     const t = list[idx];
+    let dir = idx - from;
+    if (Math.abs(dir) > 1) dir = dir > 0 ? -1 : 1;
+    dir = Math.sign(dir);
     lbImg.classList.remove('show');
+    lbImg.style.setProperty('--slide', (dir * 28) + 'px');
     setTimeout(() => {
       lbImg.onload = () => lbImg.classList.add('show');
       lbImg.src = t.dataset.full; lbImg.alt = $('img', t).alt;
       if (lbImg.complete) lbImg.classList.add('show');
       lbCount.textContent = `${idx + 1} of ${list.length}`;
+      lbBg.style.backgroundImage = `url(${t.dataset.full})`;
+      lbBg.classList.add('show');
     }, 180);
   }
   function openLb(t) { list = tiles.filter(x => !x.classList.contains('gone')); show(list.indexOf(t)); lb.classList.add('open'); body.style.overflow = 'hidden'; $('.lb-x', lb).focus(); }
