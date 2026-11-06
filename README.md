@@ -85,9 +85,31 @@ delay. If the domain changes from citygarden.co.in, update it in `sitemap.xml`, 
 canonical/OG/JSON-LD tags in `index.html`.
 
 ## Publish on GitHub Pages
-1. Create a repository and upload everything in this folder (index.html at the top level).
-2. Settings > Pages > Source: "Deploy from a branch", branch `main`, folder `/ (root)`.
-3. Your site goes live at https://<username>.github.io/<repo>/
+
+### Now — a free link to send people
+1. Repo > Settings > Pages > Source: "Deploy from a branch", branch `main`, folder `/ (root)`. Save.
+2. Wait a minute, then open **https://arsh77344.github.io/city-garden/**
+3. The review page is at **https://arsh77344.github.io/city-garden/review/**
+
+Anyone can open these, no account needed. Nothing about the real domain changes, and the
+Wix site keeps running untouched — this is a second, separate address for the same content.
+
+### Later — moving citygarden.co.in across
+Do this only when you're ready for the Wix site to be replaced.
+
+1. Repo > Settings > Pages > Custom domain: type `www.citygarden.co.in` and save. GitHub
+   writes the CNAME file itself. Do this **before** changing DNS — pointing DNS at Pages
+   first leaves the subdomain open to being claimed by someone else.
+2. At your DNS provider:
+   - `www` > CNAME > `arsh77344.github.io`
+   - apex (`@`) > four A records > `185.199.108.153`, `185.199.109.153`, `185.199.110.153`, `185.199.111.153`
+   With both in place, citygarden.co.in redirects to www automatically.
+3. Tick "Enforce HTTPS" once the certificate appears (can take up to an hour).
+
+**Before touching DNS, save a copy of the entire current zone.** Carry over every MX record
+and every TXT record (SPF, DKIM, verification) exactly as they are, or `contact@citygarden.co.in`
+will stop receiving mail without any visible error. Only the A and CNAME records for the
+website should change.
 
 ## Section colours
 Each section has a `data-theme` (dark, wine, green, light, parch). As a section reaches the middle of the screen,
