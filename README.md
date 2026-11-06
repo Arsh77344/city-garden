@@ -27,12 +27,35 @@ These came from images supplied during the build. If any were taken from Pintere
 Tips: use JPG or WebP, about 1600px on the long side for most images, under ~300 KB each.
 If you change a file extension (e.g. to .webp), update the name in `index.html`.
 
-## Videos (optional)
-Put these in `videos/`:
-- `hero.mp4` : landscape, 10 to 20 seconds, muted, under ~8 MB
-- `reel-1.mp4`, `reel-2.mp4`, `reel-3.mp4` : vertical 9:16, short, compressed
+## Videos (in place)
+All four are cut from venue footage and encoded for the web (H.264, faststart).
 
-If a video is missing, its poster image is shown instead.
+| File | Length | What it shows |
+|---|---|---|
+| hero.mp4 | 11.8s | Lawn, then the emerald canopy sweep, then the red floral decor. Muted. |
+| reel-1.mp4 | 8.7s | Emerald lounge: mandap reveal into the gold arcade |
+| reel-2.mp4 | 8.1s | The lawn with gold seating, then the catering counters |
+| reel-3.mp4 | 4.6s | Red floral decor and the garlanded walkway |
+
+All four are **vertical 9:16 (720x1280)**, including the hero. That is deliberate: the hero
+uses `object-fit:cover`, so on a desktop the browser crops the centre band and scales it up
+exactly as a pre-cropped landscape file would — same sharpness — while a phone gets the whole
+frame instead of a 2.3x upscale. Every source clip was shot vertically, so cropping to
+landscape first would only have thrown away the mobile quality.
+
+Poster images are each video's own first frame: `hero-poster.jpg`, `reel-1.jpg`,
+`reel-2.jpg`, `reel-3.jpg`. If you replace a video, regenerate its poster to match:
+
+```
+ffmpeg -i videos/reel-1.mp4 -frames:v 1 -q:v 5 images/reel-1.jpg -y
+```
+
+`images/hero.jpg` is a separate landscape image used only as the `og:image` for link
+previews — it is not the video poster. If a video is missing, its poster is shown instead.
+
+Reels keep their original audio and start muted; the circular button on each one toggles
+sound. reel-3 carries music that was playing at the event, so check you are happy to publish
+that before launch — otherwise re-encode it with `-an`.
 
 ## Things to update in index.html
 - Reviews: search for "PLACEHOLDER REVIEWS" and paste real Google reviews.

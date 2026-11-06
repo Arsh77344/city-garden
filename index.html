@@ -59,8 +59,11 @@ setTimeout(function(){var b=document.body;if(b&&!b.classList.contains('is-ready'
 <!-- ============ Hero ============ -->
 <section class="hero" id="home" data-theme="dark">
   <div class="hero-media" data-parallax="0.3">
-    <!-- Put your landing reel at videos/hero.mp4 (landscape, muted, under ~8 MB). The poster shows until then. -->
-    <video id="heroVideo" autoplay muted loop playsinline preload="auto" poster="images/hero.jpg">
+    <!-- Landing reel: videos/hero.mp4 (vertical 9:16, muted, 11.8s). Vertical is deliberate:
+         object-fit:cover crops the centre band on desktop exactly as a landscape file would,
+         while phones get the full frame instead of a heavy upscale. hero-poster.jpg matches
+         its first frame; images/hero.jpg stays landscape for og:image. -->
+    <video id="heroVideo" autoplay muted loop playsinline preload="auto" poster="images/hero-poster.jpg">
       <source src="videos/hero.mp4" type="video/mp4">
     </video>
   </div>
@@ -274,7 +277,8 @@ setTimeout(function(){var b=document.body;if(b&&!b.classList.contains('is-ready'
     <svg class="orn draw"><use href="#lotus"/></svg>
     <p class="lede fade">A few moments from the lawn. Tap a reel for sound.</p>
   </div>
-  <!-- Two supplied videos are in use. Add videos/reel-3.mp4 when a third clip is available. -->
+  <!-- Three vertical 9:16 reels cut from venue footage: the emerald lounge, the lawn and
+       catering, and the floral decor. Posters are each reel's own first frame. -->
   <div class="reel-row">
     <figure class="reel" data-cursor="Sound"><video muted loop playsinline preload="none" poster="images/reel-1.jpg" data-src="videos/reel-1.mp4"></video><button class="reel-sound" aria-label="Toggle sound"></button></figure>
     <figure class="reel" data-cursor="Sound"><video muted loop playsinline preload="none" poster="images/reel-2.jpg" data-src="videos/reel-2.mp4"></video><button class="reel-sound" aria-label="Toggle sound"></button></figure>
@@ -297,13 +301,13 @@ setTimeout(function(){var b=document.body;if(b&&!b.classList.contains('is-ready'
       <button data-filter="venue">Venue</button>
     </div>
     <div class="masonry" id="masonry">
-      <button class="tile img-reveal" data-cat="wedding" data-full="images/city-garden-wedding-welcome-sign-varanasi.jpg" data-cursor="View"><div class="px"><img src="images/city-garden-wedding-welcome-sign-varanasi.jpg" alt="City Garden wedding welcome sign at a decorated Varanasi marriage venue" width="852" height="1846" loading="lazy"></div></button>
-      <button class="tile img-reveal" data-cat="decor" data-full="images/city-garden-walima-floral-entrance-varanasi.jpg" data-cursor="View"><div class="px"><img src="images/city-garden-walima-floral-entrance-varanasi.jpg" alt="Floral Walima entrance corridor with green drapes at City Garden Varanasi" width="1086" height="1448" loading="lazy"></div></button>
-      <button class="tile img-reveal" data-cat="venue" data-full="images/city-garden-golden-banquet-lounge-varanasi.jpg" data-cursor="View"><div class="px"><img src="images/city-garden-golden-banquet-lounge-varanasi.jpg" alt="Golden wedding banquet lounge with emerald drapes at City Garden Varanasi" width="1873" height="840" loading="lazy"></div></button>
-      <button class="tile img-reveal" data-cat="food" data-full="images/city-garden-wedding-buffet-varanasi.jpg" data-cursor="View"><div class="px"><img src="images/city-garden-wedding-buffet-varanasi.jpg" alt="Golden nighttime wedding buffet setup at City Garden Varanasi" width="1962" height="801" loading="lazy"></div></button>
-      <button class="tile img-reveal" data-cat="venue" data-full="images/city-garden-emerald-gold-lounge-varanasi.jpg" data-cursor="View"><div class="px"><img src="images/city-garden-emerald-gold-lounge-varanasi.jpg" alt="Emerald and gold wedding lounge seating at City Garden Varanasi" width="1962" height="802" loading="lazy"></div></button>
-      <button class="tile img-reveal" data-cat="decor" data-full="images/city-garden-waterfall-decor-varanasi.jpg" data-cursor="View"><div class="px"><img src="images/city-garden-waterfall-decor-varanasi.jpg" alt="Wedding waterfall decor and floral entrance at City Garden Varanasi" width="1448" height="1086" loading="lazy"></div></button>
-      <button class="tile img-reveal" data-cat="wedding" data-full="images/city-garden-golden-lounge-stage-varanasi.jpg" data-cursor="View"><div class="px"><img src="images/city-garden-golden-lounge-stage-varanasi.jpg" alt="Golden wedding lounge stage with chandeliers at City Garden Varanasi" width="941" height="1672" loading="lazy"></div></button>
+      <button class="tile img-reveal" data-cat="wedding" data-full="images/city-garden-wedding-welcome-sign-varanasi.jpg" data-cursor="View"><div class="px"><img src="images/thumbs/city-garden-wedding-welcome-sign-varanasi.jpg" alt="City Garden wedding welcome sign at a decorated Varanasi marriage venue" width="369" height="800" loading="lazy"></div></button>
+      <button class="tile img-reveal" data-cat="decor" data-full="images/city-garden-walima-floral-entrance-varanasi.jpg" data-cursor="View"><div class="px"><img src="images/thumbs/city-garden-walima-floral-entrance-varanasi.jpg" alt="Floral Walima entrance corridor with green drapes at City Garden Varanasi" width="600" height="800" loading="lazy"></div></button>
+      <button class="tile img-reveal" data-cat="venue" data-full="images/city-garden-golden-banquet-lounge-varanasi.jpg" data-cursor="View"><div class="px"><img src="images/thumbs/city-garden-golden-banquet-lounge-varanasi.jpg" alt="Golden wedding banquet lounge with emerald drapes at City Garden Varanasi" width="800" height="359" loading="lazy"></div></button>
+      <button class="tile img-reveal" data-cat="food" data-full="images/city-garden-wedding-buffet-varanasi.jpg" data-cursor="View"><div class="px"><img src="images/thumbs/city-garden-wedding-buffet-varanasi.jpg" alt="Golden nighttime wedding buffet setup at City Garden Varanasi" width="800" height="326" loading="lazy"></div></button>
+      <button class="tile img-reveal" data-cat="venue" data-full="images/city-garden-emerald-gold-lounge-varanasi.jpg" data-cursor="View"><div class="px"><img src="images/thumbs/city-garden-emerald-gold-lounge-varanasi.jpg" alt="Emerald and gold wedding lounge seating at City Garden Varanasi" width="800" height="327" loading="lazy"></div></button>
+      <button class="tile img-reveal" data-cat="decor" data-full="images/city-garden-waterfall-decor-varanasi.jpg" data-cursor="View"><div class="px"><img src="images/thumbs/city-garden-waterfall-decor-varanasi.jpg" alt="Wedding waterfall decor and floral entrance at City Garden Varanasi" width="800" height="600" loading="lazy"></div></button>
+      <button class="tile img-reveal" data-cat="wedding" data-full="images/city-garden-golden-lounge-stage-varanasi.jpg" data-cursor="View"><div class="px"><img src="images/thumbs/city-garden-golden-lounge-stage-varanasi.jpg" alt="Golden wedding lounge stage with chandeliers at City Garden Varanasi" width="450" height="800" loading="lazy"></div></button>
       <button class="tile img-reveal" data-cat="decor" data-full="images/g8.jpg" data-cursor="View"><div class="px"><img src="images/g8.jpg" alt="Evening lighting at the venue" width="1000" height="1100" loading="lazy"></div></button>
       <button class="tile img-reveal" data-cat="wedding" data-full="images/g9.jpg" data-cursor="View"><div class="px"><img src="images/g9.jpg" alt="Wedding guests on the lawn at City Garden" width="1000" height="750" loading="lazy"></div></button>
     </div>
