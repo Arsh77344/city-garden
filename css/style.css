@@ -397,13 +397,18 @@ address strong{display:block;font-family:var(--serif);font-size:1.7rem;font-weig
 /* ---------- Dock ---------- */
 .dock{position:fixed;left:0;right:0;bottom:0;z-index:90;display:grid;grid-template-columns:1fr 1fr;padding-bottom:env(safe-area-inset-bottom);background:var(--burg);transform:translateY(110%);transition:transform .7s var(--ease);box-shadow:0 -8px 30px rgba(0,0,0,.25)}
 .dock.show{transform:none}
-.dock a{padding:1rem;text-align:center;text-decoration:none;font-weight:500}
+.dock a{display:flex;align-items:center;justify-content:center;gap:.55rem;padding:1rem;text-align:center;text-decoration:none;font-weight:500}
+.dock-ico{width:19px;height:19px;flex:none;fill:currentColor}
 .dock-call{color:var(--ivory)}
 .dock-wa{background:linear-gradient(135deg,#E2C389,#B89561);color:var(--burg)}
 @media (min-width:960px){
-  .dock{left:auto;right:1.6rem;bottom:1.6rem;grid-template-columns:auto;border-radius:999px;overflow:hidden;padding:0;background:none}
-  .dock-call{display:none}
-  .dock-wa{padding:1rem 1.6rem;animation:pulse 3s ease-in-out infinite}
+  .dock{left:auto;right:1.6rem;bottom:1.6rem;display:flex;flex-direction:column;align-items:flex-end;gap:.9rem;grid-template-columns:none;border-radius:0;overflow:visible;padding:0;background:none;box-shadow:none}
+  .dock-call,.dock-wa{width:58px;height:58px;padding:0;border-radius:50%;box-shadow:0 14px 30px rgba(20,3,7,.35);transition:transform .4s var(--ease),box-shadow .4s var(--ease)}
+  .dock-call:hover,.dock-wa:hover{transform:scale(1.08)}
+  .dock-call{background:var(--burg);color:var(--ivory);animation:pulse 3s ease-in-out infinite}
+  .dock-wa{animation:none}
+  .dock-ico{width:24px;height:24px}
+  .dock-label{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
   .footer{padding-bottom:5rem}
 }
 @keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(220,187,126,.5)}50%{box-shadow:0 0 0 12px rgba(220,187,126,0)}}

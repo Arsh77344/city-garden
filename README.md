@@ -66,8 +66,23 @@ that before launch — otherwise re-encode it with `-an`.
 
 ## Things to update in index.html
 - Reviews: search for "PLACEHOLDER REVIEWS" and paste real Google reviews.
-- Phone/WhatsApp: `919919696288` (in the form script `js/main.js`, the dock and the contact section).
+- Phone/WhatsApp: `919919696288` — checked against the live citygarden.co.in site (same number in its
+  header and footer, `contact@citygarden.co.in`), so this is confirmed correct. It's wired into the
+  form script `js/main.js`, the floating call/WhatsApp buttons, and the contact section — change it in
+  one place and it updates everywhere `tel:+919919696288` / `919919696288` appears.
 - Capacity (1,000+), room count, parking: confirm and edit the wording.
+
+## Call / WhatsApp button
+A floating button pair sits bottom-right on desktop/tablet (two round icon buttons, phone pulses gently
+to draw the eye) and as a full-width bar on mobile once you've scrolled a bit. Both call `tel:+919919696288`
+and open a WhatsApp chat to the same number — edit `.dock-call`/`.dock-wa` in `index.html` to change either.
+
+## SEO
+`robots.txt` and `sitemap.xml` are in this folder (update `sitemap.xml`'s `<lastmod>` when content changes
+meaningfully). Title (54 chars) and meta description (153 chars) are sized to Google's display limits;
+Open Graph/Twitter image tags include explicit width/height so social previews render without a fetch
+delay. If the domain changes from citygarden.co.in, update it in `sitemap.xml`, `robots.txt`, and the
+canonical/OG/JSON-LD tags in `index.html`.
 
 ## Publish on GitHub Pages
 1. Create a repository and upload everything in this folder (index.html at the top level).
