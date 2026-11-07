@@ -237,6 +237,21 @@
   const hv = $('#heroVideo');
   if (hv) new IntersectionObserver(es => es.forEach(e => { e.isIntersecting ? hv.play().catch(() => {}) : hv.pause(); }), { threshold: 0.05 }).observe(hv);
 
+  /* ===================== Map: load Google's frame only when asked ===================== */
+  const mapBox = $('#map'), mapFace = $('#mapFace');
+  if (mapBox && mapFace) {
+    mapFace.addEventListener('click', () => {
+      const f = document.createElement('iframe');
+      f.title = 'City Garden location on Google Maps';
+      f.loading = 'lazy';
+      f.referrerPolicy = 'no-referrer-when-downgrade';
+      f.allowFullscreen = true;
+      f.src = mapBox.dataset.src;
+      mapBox.appendChild(f);
+      mapBox.classList.add('is-live');
+    }, { once: true });
+  }
+
   /* ===================== Gallery filter + lightbox ===================== */
   const tiles = $$('.tile');
   tiles.forEach((t, i) => t.style.setProperty('--i', i));
@@ -303,11 +318,13 @@
   lb.addEventListener('touchstart', e => { sx = e.touches[0].clientX; }, { passive: true });
   lb.addEventListener('touchend', e => { const dx = e.changedTouches[0].clientX - sx; if (Math.abs(dx) > 50) show(idx + (dx < 0 ? 1 : -1)); });
 
-  /* ===================== Reviews ===================== */
+  /* ===================== Reviews =====================
+     Rotates only when there is more than one real review to rotate through.
+     With a single quote (or none) it just shows it and leaves the timer alone. */
   const quotes = $$('.quote'), dots = $$('#dots button');
   const DUR = 7000; let q = 0, timer = null;
-  quotes[0].classList.add('in');
-  function restartDot() { dots.forEach(d => d.classList.remove('is-active')); void dots[q].offsetWidth; dots[q].classList.add('is-active'); }
+  if (quotes.length) quotes[0].classList.add('in', 'is-active');
+  function restartDot() { if (!dots.length) return; dots.forEach(d => d.classList.remove('is-active')); void dots[q].offsetWidth; dots[q].classList.add('is-active'); }
   function setQuote(i) {
     const next = (i + quotes.length) % quotes.length; if (next === q) return;
     const old = quotes[q];
@@ -317,10 +334,11 @@
     setTimeout(() => { quotes[q].classList.add('is-active'); requestAnimationFrame(() => quotes[q].classList.add('in')); }, reduce ? 0 : 350);
     restartDot();
   }
-  const start = () => { clearInterval(timer); restartDot(); timer = setInterval(() => setQuote(q + 1), DUR); };
+  const start = () => { clearInterval(timer); restartDot(); if (quotes.length > 1) timer = setInterval(() => setQuote(q + 1), DUR); };
   dots.forEach((d, k) => d.addEventListener('click', () => { setQuote(k); start(); }));
   dots.forEach(d => d.style.setProperty('--dur', DUR + 'ms'));
-  new IntersectionObserver(es => es.forEach(e => { e.isIntersecting ? start() : clearInterval(timer); }), { threshold: 0.3 }).observe($('#reviews'));
+  const reviewsEl = $('#reviews');
+  if (reviewsEl && quotes.length > 1) new IntersectionObserver(es => es.forEach(e => { e.isIntersecting ? start() : clearInterval(timer); }), { threshold: 0.3 }).observe(reviewsEl);
 
   /* ===================== Cursor + magnetic buttons (desktop only) ===================== */
   if (finePointer && !reduce) {
