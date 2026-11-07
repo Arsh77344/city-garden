@@ -84,32 +84,64 @@ Open Graph/Twitter image tags include explicit width/height so social previews r
 delay. If the domain changes from citygarden.co.in, update it in `sitemap.xml`, `robots.txt`, and the
 canonical/OG/JSON-LD tags in `index.html`.
 
-## Publish on GitHub Pages
+## Going live
 
-### Now — a free link to send people
-1. Repo > Settings > Pages > Source: "Deploy from a branch", branch `main`, folder `/ (root)`. Save.
-2. Wait a minute, then open **https://arsh77344.github.io/city-garden/**
-3. The review page is at **https://arsh77344.github.io/city-garden/review/**
+DNS for citygarden.co.in is at a registrar (not Wix). The plan is to prove the new site on a
+subdomain first, then move the main domain — so the live Wix site is never at risk.
 
-Anyone can open these, no account needed. Nothing about the real domain changes, and the
-Wix site keeps running untouched — this is a second, separate address for the same content.
+### Phase 1 — test on new.citygarden.co.in
 
-### Later — moving citygarden.co.in across
-Do this only when you're ready for the Wix site to be replaced.
+1. **GitHub:** repo > Settings > Pages > Source `Deploy from a branch`, branch `main`,
+   folder `/ (root)`. Save. Wait for the green tick in the Actions tab, then confirm
+   https://arsh77344.github.io/city-garden/ loads.
+2. **Registrar:** add ONE new record. Nothing else changes.
+   | Type | Host/Name | Value | TTL |
+   |---|---|---|---|
+   | CNAME | `new` | `arsh77344.github.io` | 300 (or lowest allowed) |
+3. **GitHub:** Settings > Pages > Custom domain > `new.citygarden.co.in` > Save.
+   GitHub writes a CNAME file to the repo itself — don't add one by hand.
+4. Wait for the DNS check to pass, then tick **Enforce HTTPS** (the certificate can take
+   up to an hour). Test https://new.citygarden.co.in on a phone and a laptop: the map,
+   the videos, the gallery, the enquiry form (check the row lands in Supabase), /review/
+   and /privacy/.
 
-1. Repo > Settings > Pages > Custom domain: type `www.citygarden.co.in` and save. GitHub
-   writes the CNAME file itself. Do this **before** changing DNS — pointing DNS at Pages
-   first leaves the subdomain open to being claimed by someone else.
-2. At your DNS provider:
-   - `www` > CNAME > `arsh77344.github.io`
-   - apex (`@`) > four A records > `185.199.108.153`, `185.199.109.153`, `185.199.110.153`, `185.199.111.153`
-   With both in place, citygarden.co.in redirects to www automatically.
-3. Tick "Enforce HTTPS" once the certificate appears (can take up to an hour).
+While this runs, citygarden.co.in still serves Wix exactly as before.
 
-**Before touching DNS, save a copy of the entire current zone.** Carry over every MX record
-and every TXT record (SPF, DKIM, verification) exactly as they are, or `contact@citygarden.co.in`
-will stop receiving mail without any visible error. Only the A and CNAME records for the
-website should change.
+**Useful prep:** a day before phase 2, drop the TTL on the existing `@` and `www` records to
+300 seconds. The switch then propagates in minutes instead of hours.
+
+### Phase 2 — move the main domain
+
+Only once phase 1 is proven.
+
+1. **GitHub:** Settings > Pages > Custom domain > change to `www.citygarden.co.in` > Save.
+2. **Registrar:** change the website records only.
+   | Type | Host/Name | Value |
+   |---|---|---|
+   | CNAME | `www` | `arsh77344.github.io` |
+   | A | `@` | `185.199.108.153` |
+   | A | `@` | `185.199.109.153` |
+   | A | `@` | `185.199.110.153` |
+   | A | `@` | `185.199.111.153` |
+
+   With both sets present, citygarden.co.in redirects to www automatically.
+3. Re-tick **Enforce HTTPS** once the new certificate issues.
+4. Delete the temporary `new` CNAME, and in Google Search Console submit
+   https://www.citygarden.co.in/sitemap.xml.
+
+### The one thing that can actually go wrong
+
+`contact@citygarden.co.in` depends on **MX records** in the same DNS zone you are editing.
+Delete or overwrite them and email stops arriving — with no error, no bounce you'd notice,
+just enquiries vanishing.
+
+Before phase 2: screenshot or export the whole current DNS zone. Then change **only** the
+`A` and `CNAME` records for the website. Leave every MX record alone, and leave every TXT
+record alone (SPF, DKIM, domain verification). If the registrar offers a "point nameservers
+at Wix" style setting, do not touch it — changing nameservers moves the entire zone and is
+how MX records get lost.
+
+Afterwards, send a test email to contact@citygarden.co.in and confirm it arrives.
 
 ## Section colours
 Each section has a `data-theme` (dark, wine, green, light, parch). As a section reaches the middle of the screen,
