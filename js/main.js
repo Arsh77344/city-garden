@@ -380,6 +380,31 @@
 
   /* ===================== Enquiry form -> WhatsApp ===================== */
   const WA = '919919696288';
+  /* Supabase: every enquiry is also written to the `enquiries` table, so nothing is
+     lost if a WhatsApp message never gets sent. This key is the PUBLIC publishable
+     key and is meant to ship in the page — the table's row-level security lets the
+     browser add rows and nothing else, so enquiries cannot be read back from here. */
+  const SUPABASE = {
+    url: 'https://lrednnwultowqfivommz.supabase.co',
+    key: 'sb_publishable_5GLfirJJ5Er4hhnBh4sXBA_Ejenx8tC',
+    table: 'enquiries'
+  };
+
+  function saveEnquiry(row) {
+    if (!SUPABASE.url || !SUPABASE.key) return;
+    fetch(`${SUPABASE.url}/rest/v1/${SUPABASE.table}`, {
+      method: 'POST',
+      headers: {
+        apikey: SUPABASE.key,
+        Authorization: `Bearer ${SUPABASE.key}`,
+        'Content-Type': 'application/json',
+        Prefer: 'return=minimal'
+      },
+      body: JSON.stringify(row),
+      keepalive: true // the tab is about to hand over to WhatsApp
+    }).catch(() => {}); // never let a failed save block the enquiry
+  }
+
   const form = $('#enquiryForm');
   form.addEventListener('submit', e => {
     e.preventDefault();
@@ -394,7 +419,24 @@
     const lines = ['Hello City Garden, I would like to enquire about a booking.', '',
       `Name: ${name}`, `Phone: ${phone}`, `Event: ${f.get('type')}`, `Preferred date: ${date}`, `Approx. guests: ${f.get('guests') || 'not sure yet'}`];
     if ((f.get('msg') || '').trim()) lines.push(`Notes: ${f.get('msg').trim()}`);
+
+    // WhatsApp opens first and synchronously, or the popup blocker eats it.
     window.open(`https://wa.me/${WA}?text=${encodeURIComponent(lines.join('\n'))}`, '_blank', 'noopener');
+
+    // Bots fill the hidden field; people never see it. Those submissions aren't stored.
+    if (!(f.get('website') || '').trim()) {
+      const g = parseInt(f.get('guests'), 10);
+      saveEnquiry({
+        name: name.slice(0, 120),
+        phone: phone.slice(0, 30),
+        event_type: (f.get('type') || '').slice(0, 60) || null,
+        preferred_date: f.get('date') || null,
+        guests: Number.isFinite(g) && g > 0 ? Math.min(g, 100000) : null,
+        message: ((f.get('msg') || '').trim() || '').slice(0, 2000) || null,
+        source: 'website'
+      });
+    }
+    form.reset();
   });
   $('#f-date').min = new Date().toISOString().split('T')[0];
   $('#year').textContent = new Date().getFullYear();

@@ -122,6 +122,30 @@ alone so their own scroll math stays exact). Change a section's theme by editing
 Tiles cascade in with a staggered delay, tilt gently toward the cursor on desktop, and the lightbox now has a
 blurred cinematic backdrop of the current photo plus a directional slide when you move next/previous.
 
+## Where enquiries go (Supabase)
+
+The contact form does two things at once: it opens a pre-filled WhatsApp message (your main
+channel, unchanged) **and** saves the enquiry to a database, so nothing is lost if someone
+fills the form and never presses send in WhatsApp.
+
+- Project: **city-garden**, org *Skaira ltd*, region Mumbai (ap-south-1)
+- Table: `enquiries` — name, phone, event_type, preferred_date, guests, message, created_at
+- Read them at **supabase.com → city-garden → Table Editor → enquiries** (or export CSV there)
+
+**Security.** The key in `js/main.js` is the *publishable* key and is meant to be public.
+What protects the data is row-level security on the table: the browser role (`anon`) is
+granted `INSERT` and nothing else, and has no `SELECT` policy or privilege. So the page can
+add an enquiry and literally cannot read one back — verified by running an insert and a
+select as that role. Never put the `service_role` key in this site; it bypasses all of that.
+
+**Free tier.** Supabase pauses a free project after about a week with no activity, which
+would stop enquiries saving. Because WhatsApp still opens either way you would not lose
+enquiries, but you would lose the record of them. If the venue is quiet for stretches,
+either log in occasionally or move the project to a paid plan.
+
+A hidden "website" field in the form is a spam honeypot — people never see it, bots fill it,
+and those submissions are not stored.
+
 ## Review page (/review/)
 
 `review/index.html` is a standalone page for collecting Google reviews. Point your QR code at

@@ -376,6 +376,8 @@ body[data-theme="parch"] .contact::before{opacity:1}
 .form{background:var(--ivory);color:#2A1A1B;padding:clamp(1.5rem,4vw,2.6rem);border-radius:10px;box-shadow:0 24px 60px rgba(49,7,15,.14);position:relative}
 .form::before{content:"";position:absolute;left:0;right:0;top:0;height:4px;border-radius:10px 10px 0 0;background:linear-gradient(90deg,var(--wine),var(--terra),var(--gold),var(--peacock))}
 .field{margin-bottom:1.1rem;position:relative}
+/* spam honeypot: off-screen, never shown to a person */
+.hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
 .field.two{display:grid;grid-template-columns:1fr 1fr;gap:.9rem}
 label{display:block;font-size:.88rem;margin-bottom:.35rem;color:var(--wine);font-weight:500}
 input,select,textarea{width:100%;min-width:0;font:inherit;font-size:1rem;padding:.85rem .9rem;border:1px solid rgba(87,14,32,.22);border-radius:6px;background:#fff;color:#2A1A1B;transition:border-color .3s,box-shadow .3s,transform .3s}
