@@ -2,7 +2,10 @@
   'use strict';
   const $ = (s, c = document) => c.querySelector(s);
   const $$ = (s, c = document) => [...c.querySelectorAll(s)];
-  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  /* Live, not read-once: if someone flips the OS "reduce motion" setting, the page
+     picks it up straight away instead of needing a reload. */
+  const motionQuery = matchMedia('(prefers-reduced-motion: reduce)');
+  let reduce = motionQuery.matches;
   const finePointer = matchMedia('(pointer: fine)').matches;
   const body = document.body;
   const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
@@ -188,19 +191,27 @@
   addEventListener('load', () => { setupPin(); onScroll(); });
 
   // Ribbon: constant drift, speeds up with scroll velocity
-  if (!reduce && ribbon) {
+  if (ribbon) {
     let prev = performance.now();
     const loop = now => {
       const dt = Math.min(64, now - prev); prev = now;
-      velocity *= 0.9;
-      ribbonX -= (0.04 + Math.min(Math.abs(velocity), 120) * 0.012) * dt;
-      const half = ribbon.scrollWidth / 2;
-      if (-ribbonX >= half) ribbonX += half;
-      ribbon.style.transform = `translate3d(${ribbonX.toFixed(1)}px,0,0)`;
+      if (!reduce) {
+        velocity *= 0.9;
+        ribbonX -= (0.04 + Math.min(Math.abs(velocity), 120) * 0.012) * dt;
+        const half = ribbon.scrollWidth / 2;
+        if (-ribbonX >= half) ribbonX += half;
+        ribbon.style.transform = `translate3d(${ribbonX.toFixed(1)}px,0,0)`;
+      }
       requestAnimationFrame(loop);
     };
     requestAnimationFrame(loop);
   }
+
+  if (motionQuery.addEventListener) motionQuery.addEventListener('change', e => {
+    reduce = e.matches;
+    setupPin();
+    onScroll();
+  });
 
   /* ===================== Services: sticky image swap ===================== */
   const svcItems = $$('.svc-item'), stageImgs = $$('.stage-frame img');

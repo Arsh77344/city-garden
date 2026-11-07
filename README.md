@@ -11,13 +11,12 @@ All photos are in `images/`. Keep the same filename and just overwrite:
 | about-1.jpg, about-2.jpg | About section | ✅ filled |
 | lawn.jpg | Venue journey — open lawn | ✅ filled (frame grab from supplied footage) |
 | banquet.jpg | Venue journey — indoor banquet hall | ✅ filled |
-| stay.jpg | Venue journey — guest rooms | ⚠️ no real photo supplied — this is a styled on-brand graphic, not a photo. Replace with an actual guest-room photo. |
 | parking.jpg | Venue journey — entrance & parking | ✅ filled |
 | catering.jpg, decor.jpg, coordination.jpg | Services (sticky image that swaps as you scroll) | ✅ filled |
 | reel-1.jpg, reel-2.jpg, reel-3.jpg | Reel thumbnails (auto-generated from each video's first frame) | ✅ filled |
 | g8.jpg, g9.jpg | Gallery (any aspect ratio works) | ✅ filled |
 
-No more bokeh "placeholder — replace with X.jpg" graphics remain, except `stay.jpg` (above). `g1.jpg`–`g7.jpg` were unused leftover placeholder files and have been deleted; the gallery's real photos are the `city-garden-*.jpg` files plus `g8.jpg`/`g9.jpg`.
+No placeholder graphics remain. The guest-rooms panel was removed from the venue journey for want of a real photo of a room — re-add it when one exists. `g1.jpg`–`g7.jpg` were unused leftover placeholder files and have been deleted; the gallery's real photos are the `city-garden-*.jpg` files plus `g8.jpg`/`g9.jpg`.
 
 `images/hero-poster.jpg` is the hero **video's** poster (its own first frame) — don't hand-replace it, regenerate it from `videos/hero.mp4` if you change that video (see the Videos section below).
 

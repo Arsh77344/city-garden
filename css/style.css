@@ -131,11 +131,15 @@ body.menu-open .burger span:last-child{top:22px;transform:rotate(-45deg)}
 @media (max-width:959px){
   .nav-links{display:flex;position:fixed;inset:0;margin:0;flex-direction:column;justify-content:center;align-items:center;gap:1.2rem;background:var(--burg);clip-path:circle(0 at calc(100% - 44px) 38px);transition:clip-path .9s var(--gate);z-index:105}
   body.menu-open .nav-links{clip-path:circle(150% at calc(100% - 44px) 38px)}
-  .nav-links a{font-family:var(--serif);font-size:2.5rem;font-weight:500;opacity:0;transform:translateY(20px);transition:opacity .5s,transform .7s var(--ease)}
+  /* The overlay is always burgundy, so the link colour is pinned rather than inherited
+     from the page theme. It also scrolls, so a short screen can never cut links off,
+     and the stagger covers every link (there are seven) instead of the first six. */
+  .nav-links{overflow-y:auto;padding:calc(var(--nav-h) + 1rem) 1.5rem calc(2rem + env(safe-area-inset-bottom));justify-content:safe center}
+  .nav-links a{font-family:var(--serif);font-size:clamp(1.9rem,8vw,2.5rem);font-weight:500;color:var(--ivory);flex:none;
+    opacity:0;transform:translateY(20px);transition:opacity .5s var(--ease),transform .7s var(--ease);transition-delay:calc(.2s + var(--i,0) * .05s)}
   body.menu-open .nav-links a{opacity:1;transform:none}
-  body.menu-open .nav-links a:nth-child(1){transition-delay:.25s}body.menu-open .nav-links a:nth-child(2){transition-delay:.3s}
-  body.menu-open .nav-links a:nth-child(3){transition-delay:.35s}body.menu-open .nav-links a:nth-child(4){transition-delay:.4s}
-  body.menu-open .nav-links a:nth-child(5){transition-delay:.45s}body.menu-open .nav-links a:nth-child(6){transition-delay:.5s}
+  .nav-links a:nth-child(1){--i:1}.nav-links a:nth-child(2){--i:2}.nav-links a:nth-child(3){--i:3}.nav-links a:nth-child(4){--i:4}
+  .nav-links a:nth-child(5){--i:5}.nav-links a:nth-child(6){--i:6}.nav-links a:nth-child(7){--i:7}.nav-links a:nth-child(8){--i:8}
   body.menu-open{overflow:hidden}
 }
 @media (min-width:960px){.nav-links{display:flex}.nav-cta{display:inline-flex}.burger{display:none}}
@@ -452,6 +456,7 @@ address strong{display:block;font-family:var(--serif);font-size:1.7rem;font-weig
   .w>span,.ch>span{transform:none;opacity:1}
   .draw{stroke-dashoffset:0}
   .quote.leaving .w>span{transform:none}
+  .nav-links a{transition-delay:0s!important;transform:none}
 }
 .no-js .fade,.no-js .reel{opacity:1;transform:none}
 .no-js .img-reveal .px{clip-path:none}
@@ -563,7 +568,10 @@ body.is-ready .hero-mandala{opacity:.5}
 
 /* Services sticky image, footer */
 @media (min-width:960px){.stage-mandala{left:50%;top:50%;width:150%;transform:translate(-50%,-50%);opacity:.32}}
-.footer-mandala{left:50%;bottom:-48%;width:min(1000px,140vw);transform:translateX(-50%);opacity:.14}
+.footer-mandala{left:50%;bottom:-48%;width:min(1000px,140vw);transform:translateX(-50%);opacity:.2}
+.footer-mandala i:nth-child(1){animation-duration:28s}
+.footer-mandala i:nth-child(2){animation-duration:44s}
+.footer-mandala i:nth-child(3){animation-duration:66s}
 
 /* =====================================================================
    Reviews: textile wall background (images/pattern-wall.jpg)
