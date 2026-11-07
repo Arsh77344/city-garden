@@ -384,9 +384,9 @@ input.err{border-color:var(--terra);background:#fff6f4;animation:shake .4s}
 @keyframes shake{25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
 .form-note{font-size:.92rem;margin:1.1rem 0 0;opacity:.85}
 .map{position:relative;aspect-ratio:1;border-radius:50%;overflow:hidden;background:var(--rose);margin-bottom:1.6rem;box-shadow:0 24px 60px rgba(49,7,15,.12)}
-.map iframe{width:100%;height:100%;border:0;filter:sepia(.3) saturate(.85) hue-rotate(-8deg);position:relative;z-index:1}
+.map iframe{width:100%;height:100%;border:0;filter:sepia(.3) saturate(.85) hue-rotate(-8deg);position:relative;z-index:1;background:transparent}
 /* Standing state of the circle, before (or instead of) the Google frame. */
-.map-face{position:absolute;inset:0;z-index:2;width:100%;height:100%;border:0;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.25rem;padding:2rem 2.4rem;text-align:center;color:var(--burg);
+.map-face{position:absolute;inset:0;z-index:0;width:100%;height:100%;border:0;cursor:pointer;text-decoration:none;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.25rem;padding:2rem 2.4rem;text-align:center;color:var(--burg);
   background:radial-gradient(circle at 50% 38%,#F7EBE4,var(--rose) 70%,#C9A79C);transition:background .5s var(--ease)}
 .map-face::after{content:"";position:absolute;inset:14px;border:1px solid rgba(87,14,32,.22);border-radius:50%;pointer-events:none}
 .map-face:hover{background:radial-gradient(circle at 50% 38%,#FBF3EE,var(--rose) 72%,#C19C90)}
@@ -394,7 +394,6 @@ input.err{border-color:var(--terra);background:#fff6f4;animation:shake .4s}
 .map-name{font-family:var(--serif);font-size:1.5rem;font-weight:500;line-height:1.1}
 .map-sub{font-size:.8rem;line-height:1.45;color:rgba(49,7,15,.72);max-width:20ch}
 .map-cta{margin-top:.5rem;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--wine);border-bottom:1px solid var(--gold);padding-bottom:2px}
-.map.is-live .map-face{display:none}
 @media (max-width:420px){.map-face{padding:1.4rem 1.6rem}.map-name{font-size:1.25rem}.map-sub{font-size:.74rem}.map-pin{width:25px;height:25px}}
 address{font-style:normal;line-height:1.6;margin-bottom:1rem;color:var(--muted)}
 address strong{display:block;font-family:var(--serif);font-size:1.7rem;font-weight:500;color:var(--head);margin-bottom:.2rem}

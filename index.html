@@ -399,16 +399,17 @@ setTimeout(function(){var b=document.body;if(b&&!b.classList.contains('is-ready'
       </form>
 
       <aside class="info fade">
-        <!-- Click-to-load map. The circle always shows something, the Google frame (and its
-             cookies) only load if the visitor asks for them, and the page doesn't carry ~1MB
-             of Maps script on first paint. -->
-        <div class="map" id="map" data-src="https://www.google.com/maps?q=City+Garden+Andhrapull+Chaukaghat+Varanasi&amp;output=embed">
-          <button class="map-face" type="button" id="mapFace" aria-label="Load the Google map of City Garden">
+        <!-- The map loads with the page. The card sits BEHIND the frame, so if a browser
+             or embed sandbox blocks Google's iframe the circle still shows the venue and
+             address instead of going blank. -->
+        <div class="map" id="map">
+          <a class="map-face" href="https://www.google.com/maps/dir/?api=1&amp;destination=City+Garden+Andhrapull+Chaukaghat+Varanasi" target="_blank" rel="noopener">
             <svg class="map-pin" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a7 7 0 0 0-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 0 0-7-7Zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5Z"/></svg>
             <span class="map-name">City Garden</span>
             <span class="map-sub">Andhrapull, Chaukaghat<br>Grand Trunk Road, Varanasi</span>
-            <span class="map-cta">Tap to open the map</span>
-          </button>
+            <span class="map-cta">Open in Google Maps</span>
+          </a>
+          <iframe title="City Garden location on Google Maps" loading="lazy" allowfullscreen referrerpolicy="no-referrer-when-downgrade" src="https://www.google.com/maps?q=City+Garden+Andhrapull+Chaukaghat+Varanasi&amp;output=embed"></iframe>
         </div>
         <address>
           <strong>City Garden</strong>

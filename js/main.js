@@ -237,21 +237,6 @@
   const hv = $('#heroVideo');
   if (hv) new IntersectionObserver(es => es.forEach(e => { e.isIntersecting ? hv.play().catch(() => {}) : hv.pause(); }), { threshold: 0.05 }).observe(hv);
 
-  /* ===================== Map: load Google's frame only when asked ===================== */
-  const mapBox = $('#map'), mapFace = $('#mapFace');
-  if (mapBox && mapFace) {
-    mapFace.addEventListener('click', () => {
-      const f = document.createElement('iframe');
-      f.title = 'City Garden location on Google Maps';
-      f.loading = 'lazy';
-      f.referrerPolicy = 'no-referrer-when-downgrade';
-      f.allowFullscreen = true;
-      f.src = mapBox.dataset.src;
-      mapBox.appendChild(f);
-      mapBox.classList.add('is-live');
-    }, { once: true });
-  }
-
   /* ===================== Gallery filter + lightbox ===================== */
   const tiles = $$('.tile');
   tiles.forEach((t, i) => t.style.setProperty('--i', i));
