@@ -213,6 +213,34 @@ falls back to local drafting and the guest sees nothing unusual.
 **Never put an API key into `review/index.html`.** It's a public file — anyone can read it in
 the page source and spend your credit. That's the only reason the Worker exists.
 
+## Speed
+
+What a phone downloads scrolling the whole page is about **5.5 MB**, down from ~8 MB.
+
+- Every photo is served as **WebP** with the original JPEG kept as a fallback, via
+  `<picture>`. `picture{display:contents}` keeps the wrapper out of the layout tree, so
+  the `<img>` behaves exactly as it did before. To swap a photo, replace the `.jpg` and
+  regenerate the `.webp` beside it (Pillow, quality 72) — or delete the `<source>` line
+  and the JPEG alone will serve.
+- Videos are re-encoded at CRF 31 (hero also has its silent audio track stripped). The
+  hero went 3.04 MB -> 1.61 MB, which is the one that holds up first paint. Reels are
+  `preload="none"` and cost nothing until tapped.
+- Below-the-fold images are `loading="lazy"`; the hero poster is preloaded with
+  `fetchpriority="high"`.
+
+## Motion and the Reduce Motion setting
+
+The site honours `prefers-reduced-motion`. If a visitor has Reduce Motion on (iOS:
+Settings > Accessibility > Motion; Android: Settings > Accessibility > Remove animations),
+the marquee, the rotating mandalas, the parallax and the pinned venue scroll all stop.
+**That is deliberate** — that motion can make some people physically unwell.
+
+It used to also flatten every transition, which made the page feel broken rather than
+calm. Now only motion that *travels, loops or parallaxes* is cut; opacity fades still run,
+so content eases in gently.
+
+If animations look dead on a device, check that setting before assuming a bug.
+
 ## Screen sizes
 One responsive site, no separate mobile file:
 - Phone (under 600px): stacked layout, swipe carousels, Call/WhatsApp bar at the bottom.

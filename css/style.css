@@ -46,6 +46,10 @@ section[id]{scroll-margin-top:calc(var(--nav-h) - 1px)}
 .center p,.center .orn{margin-inline:auto}
 .small{font-size:.86rem;opacity:.75}
 
+/* <picture> wraps every photo for the WebP sources; display:contents keeps it out of
+   the layout tree entirely, so the <img> lays out exactly as it did unwrapped. */
+picture{display:contents}
+
 /* ---------- Type ---------- */
 .display,h3{font-family:var(--serif);font-weight:500;line-height:1;letter-spacing:-.015em;margin:0;color:var(--head);transition:color 1.4s var(--ease)}
 .display{font-size:clamp(2.6rem,min(7.2vw,12vh),5.8rem);max-width:14ch}
@@ -435,13 +439,19 @@ address strong{display:block;font-family:var(--serif);font-size:1.7rem;font-weig
 @keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(220,187,126,.5)}50%{box-shadow:0 0 0 12px rgba(220,187,126,0)}}
 
 /* ---------- Reduced motion & no-JS ---------- */
+/* Reduced motion: stop everything that TRAVELS, loops or parallaxes, but keep the
+   opacity fades. Killing transitions outright made the whole page feel broken rather
+   than calm, which is not what someone asking for less motion wants either. */
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
-  *,*::before,*::after{animation:none!important;transition-duration:.01ms!important;transition-delay:0s!important}
+  .mandala i,.mandala::before,.art img,.dock-call,.ribbon-track{animation:none!important}
+  [data-parallax]{transform:none!important}
   .img-reveal .px{clip-path:none}
-  .img-reveal img{opacity:1;filter:none;transform:none}
-  .fade,.reel,.w>span,.ch>span{opacity:1;transform:none}
+  .img-reveal img{filter:none;transform:none}
+  .fade,.reel{transform:none}
+  .w>span,.ch>span{transform:none;opacity:1}
   .draw{stroke-dashoffset:0}
+  .quote.leaving .w>span{transform:none}
 }
 .no-js .fade,.no-js .reel{opacity:1;transform:none}
 .no-js .img-reveal .px{clip-path:none}
