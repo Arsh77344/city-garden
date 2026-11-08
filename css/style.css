@@ -571,6 +571,11 @@ main,.footer{overflow-x:clip}
 @media (max-width:699px){
   .loader{display:none}
   body.is-loading{overflow:visible}
+  /* With no splash, the headline is the largest thing on a phone screen, so its
+     entrance is what Largest Contentful Paint ends up measuring. At 22ms per character
+     the tail of a long headline lands about two seconds in. Phones get it as one quick
+     move; the per-character choreography stays on desktop. */
+  .ch>span{transition-duration:.45s;transition-delay:0s}
 }
 @keyframes loaderBail{to{visibility:hidden;pointer-events:none}}
 .reveal-all .fade,.reveal-all .reel{opacity:1;transform:none}
@@ -585,7 +590,13 @@ main,.footer{overflow-x:clip}
 @property --sweep{syntax:'<angle>';inherits:false;initial-value:0deg}
 .mandala{position:absolute;aspect-ratio:1;pointer-events:none}
 .mandala-turn{position:absolute;inset:0}
-.mandala i{position:absolute;inset:0;background:url(../images/mandala.png) center/100% 100% no-repeat;will-change:transform}
+/* The mandala's image is held back until the page has loaded (main.js adds .deco).
+   It is decoration -- the hero one even fades in on a one-second delay -- but as a CSS
+   background it was being fetched as part of the first wave, and measured on the live
+   site it was winning Largest Contentful Paint off the hero photo itself: 870ms of load
+   delay, then 1,420ms of render delay for a fade nobody is waiting on. */
+.mandala i{position:absolute;inset:0;background:center/100% 100% no-repeat;will-change:transform}
+body.deco .mandala:not(.loader-mandala) i{background-image:url(../images/mandala.png)}
 .mandala i:nth-child(1){-webkit-mask:radial-gradient(circle closest-side,#000 31%,transparent 31.6%);mask:radial-gradient(circle closest-side,#000 31%,transparent 31.6%);animation:mspin 60s linear infinite}
 .mandala i:nth-child(2){-webkit-mask:radial-gradient(circle closest-side,transparent 31%,#000 31.6%,#000 70.4%,transparent 71%);mask:radial-gradient(circle closest-side,transparent 31%,#000 31.6%,#000 70.4%,transparent 71%);animation:mspin 100s linear infinite reverse}
 .mandala i:nth-child(3){-webkit-mask:radial-gradient(circle closest-side,transparent 70.4%,#000 71%);mask:radial-gradient(circle closest-side,transparent 70.4%,#000 71%);animation:mspin 150s linear infinite}

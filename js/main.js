@@ -98,6 +98,12 @@
     if (document.readyState === 'complete') go();
     else { addEventListener('load', go, { once: true }); setTimeout(go, 4000); }
   }
+
+  // Decorative mandala backgrounds are fetched only once the page itself has loaded,
+  // so their bytes never compete with the hero. See .mandala i in style.css.
+  const lightDeco = () => body.classList.add('deco');
+  if (document.readyState === 'complete') lightDeco();
+  else { addEventListener('load', lightDeco, { once: true }); setTimeout(lightDeco, 4000); }
   function ready() {
     body.classList.remove('is-loading');
     body.classList.add('is-ready');
