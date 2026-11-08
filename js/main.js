@@ -83,6 +83,9 @@
   function startHeroVideo() {
     const v = $('#heroVideo');
     if (!v) return;
+    // Only fade the video in once it is genuinely playing, so the still underneath
+    // stays put if the video is slow to buffer or never plays at all.
+    v.addEventListener('playing', () => v.classList.add('playing'), { once: true });
     if (!v.src && v.dataset.src) v.src = v.dataset.src;
     v.play().catch(() => {});
   }

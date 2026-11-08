@@ -98,13 +98,19 @@ setTimeout(function(){var b=document.body;if(b&&!b.classList.contains('is-ready'
          object-fit:cover crops the centre band on desktop exactly as a landscape file would,
          while phones get the full frame instead of a heavy upscale. hero-poster.jpg matches
          its first frame; images/hero.jpg stays landscape for og:image. -->
-    <!-- preload="none" + data-src is deliberate: with preload="auto" the browser pulled
+    <!-- The still is a real image element, not the video's poster attribute. A video with no
+         src reports no Largest Contentful Paint candidate, so the biggest, earliest
+         thing on screen went uncounted and a decorative background ring became the LCP
+         element instead. As an <img> it is preloaded, fetchpriority=high, and paints as
+         soon as it lands. The video fades in over it once it actually starts playing.
+
+         preload="none" + data-src is deliberate: with preload="auto" the browser pulled
          all 1.7MB of this down from the very first moment, while the splash loader was
          still covering the screen and the video wasn't visible at all. On a slow
          connection that ate the whole pipe and everything that actually needed to paint
-         first -- the stylesheet, the poster, main.js -- queued behind it. main.js now
-         attaches the source once the page is revealed; the poster covers the gap. -->
-    <video id="heroVideo" muted loop playsinline preload="none" poster="images/hero-poster.jpg" data-src="videos/hero.mp4"></video>
+         first -- the stylesheet, the still, main.js -- queued behind it. -->
+    <img class="hero-still" src="images/hero-poster.jpg" alt="" width="640" height="1138" fetchpriority="high" decoding="async">
+    <video id="heroVideo" muted loop playsinline preload="none" data-src="videos/hero.mp4"></video>
   </div>
   <div class="hero-shade"></div>
   <canvas class="dust" id="dust" aria-hidden="true"></canvas>
