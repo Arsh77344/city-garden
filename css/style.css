@@ -576,6 +576,12 @@ main,.footer{overflow-x:clip}
      the tail of a long headline lands about two seconds in. Phones get it as one quick
      move; the per-character choreography stays on desktop. */
   .ch>span{transition-duration:.45s;transition-delay:0s}
+  /* The ring over the hero goes on phones. Measured on the live site it was the
+     Largest Contentful Paint element three runs running -- 770ms waiting to be
+     discovered, then 1,340ms of its own delayed fade -- so a decoration drawn at about
+     288px on a phone, at half opacity over a night photograph, was setting the number
+     for the whole page. The footer and services rings are below the fold and stay. */
+  .hero-mandala{display:none}
 }
 @keyframes loaderBail{to{visibility:hidden;pointer-events:none}}
 .reveal-all .fade,.reveal-all .reel{opacity:1;transform:none}
