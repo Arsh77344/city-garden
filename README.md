@@ -66,9 +66,14 @@ that before launch — otherwise re-encode it with `-an`.
 ## Things to update in index.html
 - Reviews: search for "PLACEHOLDER REVIEWS" and paste real Google reviews.
 - Phone/WhatsApp: `919919696288` — checked against the live citygarden.co.in site (same number in its
-  header and footer, `contact@citygarden.co.in`), so this is confirmed correct. It's wired into the
-  form script `js/main.js`, the floating call/WhatsApp buttons, and the contact section — change it in
-  one place and it updates everywhere `tel:+919919696288` / `919919696288` appears.
+  header and footer), so this is confirmed correct. It's wired into the form script `js/main.js`, the
+  floating call/WhatsApp buttons, and the contact section — change it in one place and it updates
+  everywhere `tel:+919919696288` / `919919696288` appears.
+- Email: `city.gardenvns0542@gmail.com` is the live contact address (header, footer, privacy page,
+  review page, and the JSON-LD block). `contact@citygarden.co.in` was never usable — no mailbox or
+  MX records were ever set up for it — so it was swapped out rather than fixed. If a proper
+  `@citygarden.co.in` mailbox gets set up later (Zoho Mail / Google Workspace), swap the address back
+  with a find-and-replace across `index.html`, `review/index.html`, and `privacy/index.html`.
 - Capacity (1,000+), room count, parking: confirm and edit the wording.
 
 ## Call / WhatsApp button
@@ -130,17 +135,13 @@ Only once phase 1 is proven.
 
 ### The one thing that can actually go wrong
 
-`contact@citygarden.co.in` depends on **MX records** in the same DNS zone you are editing.
-Delete or overwrite them and email stops arriving — with no error, no bounce you'd notice,
-just enquiries vanishing.
-
-Before phase 2: screenshot or export the whole current DNS zone. Then change **only** the
-`A` and `CNAME` records for the website. Leave every MX record alone, and leave every TXT
-record alone (SPF, DKIM, domain verification). If the registrar offers a "point nameservers
-at Wix" style setting, do not touch it — changing nameservers moves the entire zone and is
-how MX records get lost.
-
-Afterwards, send a test email to contact@citygarden.co.in and confirm it arrives.
+Before phase 2: screenshot or export the whole current DNS zone before changing anything, so
+there is a record to restore from if a record gets dropped by mistake. The site's contact
+email is a plain Gmail address (`city.gardenvns0542@gmail.com`), not `@citygarden.co.in`, so
+this step no longer depends on the domain's own MX records the way it used to — but leave any
+existing MX/TXT records (SPF, DKIM, domain verification) alone regardless, in case anything
+else on the domain depends on them. If the registrar offers a "point nameservers at Wix" style
+setting, do not touch it — changing nameservers moves the entire zone.
 
 ## Section colours
 Each section has a `data-theme` (dark, wine, green, light, parch). As a section reaches the middle of the screen,
