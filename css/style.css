@@ -386,6 +386,7 @@ body[data-theme="parch"] .contact::before{opacity:1}
 .field{margin-bottom:1.1rem;position:relative}
 /* spam honeypot: off-screen, never shown to a person */
 .hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
 .field.two{display:grid;grid-template-columns:1fr 1fr;gap:.9rem}
 label{display:block;font-size:.88rem;margin-bottom:.35rem;color:var(--wine);font-weight:500}
 input,select,textarea{width:100%;min-width:0;font:inherit;font-size:1rem;padding:.85rem .9rem;border:1px solid rgba(87,14,32,.22);border-radius:6px;background:#fff;color:#2A1A1B;transition:border-color .3s,box-shadow .3s,transform .3s}
@@ -555,8 +556,12 @@ main,.footer{overflow-x:clip}
 @keyframes mspin{to{transform:rotate(360deg)}}
 @keyframes mglow{from{opacity:.35;transform:scale(.9)}to{opacity:1;transform:scale(1.08)}}
 
-/* Loader: the mandala is traced in a circular sweep, then the gates open */
+/* Loader: the mandala is traced in a circular sweep, then the gates open.
+   It's the first thing painted (and so the LCP candidate on a fresh visit), and it
+   never shows at more than ~380px, so it gets its own smaller, harder-compressed
+   source rather than the 820px one shared by the hero/stage/footer mandalas. */
 .loader-mandala{inset:0;width:100%;opacity:.8;-webkit-mask:conic-gradient(#000 var(--sweep),transparent 0);mask:conic-gradient(#000 var(--sweep),transparent 0)}
+.loader-mandala i{background-image:url(../images/mandala-sm.webp)}
 .loader-mandala.in{animation:sweep 2.1s cubic-bezier(.65,0,.25,1) forwards}
 @keyframes sweep{to{--sweep:360deg}}
 .loader-mark::before{content:"";position:absolute;inset:18%;border-radius:50%;background:radial-gradient(circle,rgba(49,7,15,.95) 40%,rgba(49,7,15,0) 72%);z-index:1;opacity:0;animation:markIn 1s .9s var(--ease) forwards}

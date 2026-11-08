@@ -24,18 +24,27 @@
           w.appendChild(i); frag.appendChild(w);
         });
         n.replaceWith(frag);
-      } else if (n.nodeType === 1) splitWords(n, counter);
+      } else if (n.nodeType === 1 && !n.classList.contains('sr-only')) splitWords(n, counter);
     });
   }
+  // aria-label is prohibited on some roles (e.g. a plain <p>'s implicit "paragraph"
+  // role), so the readable copy for assistive tech is a visually-hidden text node
+  // instead, with the animated, chopped-up spans hidden from the accessibility tree.
+  function addAccessibleText(el) {
+    const sr = document.createElement('span');
+    sr.className = 'sr-only';
+    sr.textContent = el.textContent.trim().replace(/\s+/g, ' ');
+    el.insertBefore(sr, el.firstChild);
+  }
   $$('[data-split], .quote p').forEach(el => {
-    el.setAttribute('aria-label', el.textContent.trim().replace(/\s+/g, ' '));
+    addAccessibleText(el);
     splitWords(el, { n: 0 });
   });
 
   // Characters (hero title)
   const heroTitle = $('[data-chars]');
   if (heroTitle) {
-    heroTitle.setAttribute('aria-label', heroTitle.textContent.trim().replace(/\s+/g, ' '));
+    addAccessibleText(heroTitle);
     let c = 0;
     const splitChars = node => {
       [...node.childNodes].forEach(n => {
@@ -53,7 +62,7 @@
             frag.appendChild(word);
           });
           n.replaceWith(frag);
-        } else if (n.nodeType === 1) splitChars(n);
+        } else if (n.nodeType === 1 && !n.classList.contains('sr-only')) splitChars(n);
       });
     };
     splitChars(heroTitle);
@@ -78,10 +87,14 @@
   if (reduce || seen) { loader.classList.add('done'); ready(); }
   else {
     requestAnimationFrame(() => requestAnimationFrame(() => $('.loader-mandala').classList.add('in')));
-    let opened = false;
-    const go = () => { if (opened) return; opened = true; setTimeout(openGates, 2300); };
-    if (document.readyState === 'complete') go(); else addEventListener('load', go);
-    setTimeout(() => { if (!opened) { opened = true; openGates(); } }, 5500);
+    // Open the gates after a fixed, short pause for the mandala's draw-in animation.
+    // This used to wait for the window 'load' event (i.e. every image and the hero
+    // video fully downloaded) with only a 5.5s safety-net fallback -- on a slow
+    // connection that held the splash screen up for several seconds, which pushed
+    // Largest Contentful Paint out just as far, since the mandala was the only thing
+    // painted the whole time. A fixed delay reveals the real page at the same speed
+    // on every connection; the hero video keeps loading/playing underneath it.
+    setTimeout(openGates, 1400);
   }
 
   /* ===================== Theme flow (page colour morphs between sections) ===================== */

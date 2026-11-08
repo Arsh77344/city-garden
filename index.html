@@ -26,7 +26,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preload" as="image" href="images/hero-poster.jpg" fetchpriority="high">
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:wght@400;500;600&family=Pinyon+Script&display=swap" rel="stylesheet">
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:wght@400;500;600&family=Pinyon+Script&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:wght@400;500;600&family=Pinyon+Script&display=swap" rel="stylesheet"></noscript>
 <link rel="stylesheet" href="css/style.css">
 <script>document.documentElement.classList.remove('no-js');
 setTimeout(function(){var b=document.body;if(b&&!b.classList.contains('is-ready')){b.classList.remove('is-loading');b.classList.add('is-ready');document.documentElement.classList.add('reveal-all');var l=document.getElementById('loader');if(l)l.style.display='none';}},6000);</script>
@@ -56,7 +57,7 @@ setTimeout(function(){var b=document.body;if(b&&!b.classList.contains('is-ready'
   <div class="door door-r"></div>
   <div class="loader-mark">
     <div class="mandala loader-mandala" aria-hidden="true"><i></i><i></i><i></i></div>
-    <img src="images/logo.png" alt="" width="661" height="440">
+    <img src="images/logo.png" srcset="images/logo-m.png 520w, images/logo.png 661w" sizes="min(380px,82vw)" alt="" width="661" height="440">
   </div>
 </div>
 
@@ -65,7 +66,7 @@ setTimeout(function(){var b=document.body;if(b&&!b.classList.contains('is-ready'
 
 <!-- ============ Header ============ -->
 <header class="nav" id="nav">
-  <a href="#home" class="nav-logo" aria-label="City Garden, home"><img src="images/logo.png" alt="City Garden" width="661" height="440"></a>
+  <a href="#home" class="nav-logo" aria-label="City Garden, home"><img src="images/logo.png" srcset="images/logo-m.png 520w, images/logo.png 661w" sizes="120px" alt="City Garden" width="661" height="440"></a>
   <nav class="nav-links" id="navLinks" aria-label="Main">
     <a href="#home">Home</a>
     <a href="#about">About</a>
