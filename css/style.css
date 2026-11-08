@@ -6,6 +6,22 @@
    Peacock green #315044 · Terracotta #A64C43 · Espresso #251C1D
    The page colour flows between sections as you scroll (body[data-theme]).
    ========================================================= */
+
+/* Fonts are self-hosted rather than pulled from fonts.googleapis.com. That request
+   was render-blocking, and once it was made async the text painted in a fallback face
+   first and reflowed when the real one arrived -- which is where the desktop layout
+   shift was coming from. Served from our own origin and preloaded in the <head>, they
+   land before first paint, so there is nothing to swap and nothing to shift. */
+@font-face{font-family:'Cormorant Garamond';font-style:normal;font-weight:400;font-display:swap;src:url(../fonts/cormorant-garamond-latin-400-normal.woff2) format('woff2')}
+@font-face{font-family:'Cormorant Garamond';font-style:normal;font-weight:500;font-display:swap;src:url(../fonts/cormorant-garamond-latin-500-normal.woff2) format('woff2')}
+@font-face{font-family:'Cormorant Garamond';font-style:normal;font-weight:600;font-display:swap;src:url(../fonts/cormorant-garamond-latin-600-normal.woff2) format('woff2')}
+@font-face{font-family:'Cormorant Garamond';font-style:italic;font-weight:400;font-display:swap;src:url(../fonts/cormorant-garamond-latin-400-italic.woff2) format('woff2')}
+@font-face{font-family:'Cormorant Garamond';font-style:italic;font-weight:500;font-display:swap;src:url(../fonts/cormorant-garamond-latin-500-italic.woff2) format('woff2')}
+@font-face{font-family:'DM Sans';font-style:normal;font-weight:400;font-display:swap;src:url(../fonts/dm-sans-latin-400-normal.woff2) format('woff2')}
+@font-face{font-family:'DM Sans';font-style:normal;font-weight:500;font-display:swap;src:url(../fonts/dm-sans-latin-500-normal.woff2) format('woff2')}
+@font-face{font-family:'DM Sans';font-style:normal;font-weight:600;font-display:swap;src:url(../fonts/dm-sans-latin-600-normal.woff2) format('woff2')}
+@font-face{font-family:'Pinyon Script';font-style:normal;font-weight:400;font-display:swap;src:url(../fonts/pinyon-script-latin-400-normal.woff2) format('woff2')}
+
 :root{
   --burg:#31070F; --wine:#570E20; --ivory:#F4EDE3; --parch:#EDE0C9;
   --gold:#B89561; --gold-lt:#DCBB7E; --gold-dk:#8E6A3A; --rose:#D4B5AA;
@@ -544,6 +560,18 @@ main,.footer{overflow-x:clip}
 /* failsafe: if scripts are blocked, never leave the page hidden. A pure-CSS backstop
    behind both the inline and js/main.js timers above, so tightened to match them. */
 .loader{animation:loaderBail 0s 2.5s forwards}
+
+/* Phones skip the splash altogether. It is the single biggest cost on a slow mobile
+   connection: it holds back every real pixel, and because its mandala draws itself in
+   over a second or two, that draw-in is what gets measured as the Largest Contentful
+   Paint -- a decorative ring, not the venue. Measured on the live site, the render of
+   that one element accounted for 2,020ms of a 5s LCP. Desktop, on a typically faster
+   connection and where the intro reads as intended, keeps it. Delete this block to
+   bring the splash back everywhere. */
+@media (max-width:699px){
+  .loader{display:none}
+  body.is-loading{overflow:visible}
+}
 @keyframes loaderBail{to{visibility:hidden;pointer-events:none}}
 .reveal-all .fade,.reveal-all .reel{opacity:1;transform:none}
 .reveal-all .img-reveal .px{clip-path:none}

@@ -82,12 +82,21 @@
   // has to come through here, including the inline backstop's.
   function startHeroVideo() {
     const v = $('#heroVideo');
-    if (!v) return;
-    // Only fade the video in once it is genuinely playing, so the still underneath
-    // stays put if the video is slow to buffer or never plays at all.
-    v.addEventListener('playing', () => v.classList.add('playing'), { once: true });
-    if (!v.src && v.dataset.src) v.src = v.dataset.src;
-    v.play().catch(() => {});
+    if (!v || v.src) return;
+    const go = () => {
+      if (v.src) return;
+      // Only fade the video in once it is genuinely playing, so the still underneath
+      // stays put if the video is slow to buffer or never plays at all.
+      v.addEventListener('playing', () => v.classList.add('playing'), { once: true });
+      v.src = v.dataset.src;
+      v.play().catch(() => {});
+    };
+    // Held until the rest of the page has finished loading so that its 1.7MB isn't
+    // competing with the hero still, which is what has to paint for a fast LCP. On a
+    // quick connection 'load' fires almost immediately; the cap covers the case where
+    // something else is slow enough that it never would.
+    if (document.readyState === 'complete') go();
+    else { addEventListener('load', go, { once: true }); setTimeout(go, 4000); }
   }
   function ready() {
     body.classList.remove('is-loading');
@@ -96,13 +105,16 @@
     setTimeout(() => loader.classList.add('done'), 1000);
   }
   function openGates() { loader.classList.add('open'); setTimeout(ready, 500); try { sessionStorage.setItem('cg-seen', '1'); } catch (e) {} }
+  // Phones never run the splash (see the max-width:699px block in style.css), so the
+  // page is live from the first paint and there is nothing to open.
+  const noSplash = matchMedia('(max-width:699px)').matches;
   if (body.classList.contains('is-ready')) {
     // The inline backstop in <head> already revealed the page before this script
     // finished loading (a slow connection) -- nothing left to animate, but the video
     // still needs its source attached, since that only ever happens from here.
     loader.classList.add('done');
     startHeroVideo();
-  } else if (reduce || seen) { loader.classList.add('done'); ready(); }
+  } else if (noSplash || reduce || seen) { loader.classList.add('done'); ready(); }
   else {
     requestAnimationFrame(() => requestAnimationFrame(() => $('.loader-mandala').classList.add('in')));
     // Open the gates once the mandala's draw-in has mostly played. This used to wait

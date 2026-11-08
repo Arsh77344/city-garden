@@ -23,15 +23,17 @@
 <meta name="twitter:image" content="https://www.citygarden.co.in/images/hero.jpg">
 <link rel="icon" href="images/logo-emblem.png">
 <link rel="apple-touch-icon" href="images/logo-emblem.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<!-- Fonts are served from this origin (see css/style.css), so there is no third-party
+     connection to warm up and no render-blocking stylesheet from Google. Only the three
+     faces used above the fold are preloaded; the rest load as the stylesheet needs them. -->
+<link rel="preload" as="font" type="font/woff2" href="fonts/cormorant-garamond-latin-400-normal.woff2" crossorigin>
+<link rel="preload" as="font" type="font/woff2" href="fonts/cormorant-garamond-latin-500-italic.woff2" crossorigin>
+<link rel="preload" as="font" type="font/woff2" href="fonts/dm-sans-latin-400-normal.woff2" crossorigin>
 <link rel="preload" as="image" href="images/hero-poster.jpg" fetchpriority="high">
 <!-- The loader's mandala is a CSS background, so without this the browser can't even
      discover it until style.css has downloaded and parsed -- a serial round-trip in
      front of the first thing the visitor sees. -->
-<link rel="preload" as="image" href="images/mandala-sm.png">
-<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:wght@400;500;600&family=Pinyon+Script&display=swap" onload="this.onload=null;this.rel='stylesheet'">
-<noscript><link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:wght@400;500;600&family=Pinyon+Script&display=swap" rel="stylesheet"></noscript>
+<link rel="preload" as="image" href="images/mandala-sm.png" media="(min-width:700px)">
 <link rel="stylesheet" href="css/style.css">
 <script>document.documentElement.classList.remove('no-js');
 // Backstop in case js/main.js is slow to arrive (e.g. a throttled connection) or
