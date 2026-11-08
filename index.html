@@ -30,7 +30,12 @@
 <noscript><link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:wght@400;500;600&family=Pinyon+Script&display=swap" rel="stylesheet"></noscript>
 <link rel="stylesheet" href="css/style.css">
 <script>document.documentElement.classList.remove('no-js');
-setTimeout(function(){var b=document.body;if(b&&!b.classList.contains('is-ready')){b.classList.remove('is-loading');b.classList.add('is-ready');document.documentElement.classList.add('reveal-all');var l=document.getElementById('loader');if(l)l.style.display='none';}},6000);</script>
+// Backstop in case js/main.js is slow to arrive (e.g. a throttled connection) or
+// fails outright: this inline script runs immediately with the HTML itself, so it
+// doesn't wait on any other download. It used to wait 6s, which on a slow connection
+// was the thing actually keeping the splash screen (and so Largest Contentful Paint)
+// up that long -- main.js's own, faster timing never got a chance to run first.
+setTimeout(function(){var b=document.body;if(b&&!b.classList.contains('is-ready')){b.classList.remove('is-loading');b.classList.add('is-ready');document.documentElement.classList.add('reveal-all');var l=document.getElementById('loader');if(l)l.style.display='none';}},2200);</script>
 <!-- GOOGLE ANALYTICS — not active yet.
      To switch it on: delete this comment wrapper, and replace G-XXXXXXXXXX (twice) with
      your Measurement ID from Google Analytics > Admin > Data Streams.

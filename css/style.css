@@ -533,8 +533,9 @@ main,.footer{overflow-x:clip}
 @media (min-width:600px) and (max-width:959px){.svc-item+.svc-item{margin-top:0}}
 @media (min-width:760px) and (max-width:1099px){.field.two{grid-template-columns:1fr}}
 
-/* failsafe: if scripts are blocked, never leave the page hidden */
-.loader{animation:loaderBail 0s 7s forwards}
+/* failsafe: if scripts are blocked, never leave the page hidden. A pure-CSS backstop
+   behind both the inline and js/main.js timers above, so tightened to match them. */
+.loader{animation:loaderBail 0s 3s forwards}
 @keyframes loaderBail{to{visibility:hidden;pointer-events:none}}
 .reveal-all .fade,.reveal-all .reel{opacity:1;transform:none}
 .reveal-all .img-reveal .px{clip-path:none}

@@ -84,7 +84,11 @@
     setTimeout(() => loader.classList.add('done'), 1500);
   }
   function openGates() { loader.classList.add('open'); setTimeout(ready, 500); try { sessionStorage.setItem('cg-seen', '1'); } catch (e) {} }
-  if (reduce || seen) { loader.classList.add('done'); ready(); }
+  if (body.classList.contains('is-ready')) {
+    // The inline backstop in <head> already revealed the page before this script
+    // finished loading (a slow connection) -- nothing left to animate here.
+    loader.classList.add('done');
+  } else if (reduce || seen) { loader.classList.add('done'); ready(); }
   else {
     requestAnimationFrame(() => requestAnimationFrame(() => $('.loader-mandala').classList.add('in')));
     // Open the gates after a fixed, short pause for the mandala's draw-in animation.
