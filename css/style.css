@@ -90,12 +90,12 @@ p{margin:0 0 1.1rem;max-width:58ch}
 
 /* ---------- Loader ---------- */
 .loader{position:fixed;inset:0;z-index:200;display:grid;place-items:center}
-.door{position:absolute;top:0;bottom:0;width:50.2%;background:radial-gradient(circle at var(--x) 50%,#4a0c1b,var(--burg) 60%);transition:transform 1.25s var(--gate)}
+.door{position:absolute;top:0;bottom:0;width:50.2%;background:radial-gradient(circle at var(--x) 50%,#4a0c1b,var(--burg) 60%);transition:transform .9s var(--gate)}
 .door-l{left:0;--x:100%}.door-r{right:0;--x:0%}
 .door::after{content:"";position:absolute;top:0;bottom:0;width:1px;background:linear-gradient(transparent,var(--gold),transparent)}
 .door-l::after{right:0}.door-r::after{left:0}
 .loader-mark{position:relative;z-index:2;width:min(380px,82vw);aspect-ratio:1;display:grid;place-items:center;transition:opacity .5s,transform .9s var(--ease)}
-.loader-mark img{width:58%;position:relative;opacity:0;transform:scale(.9);animation:markIn 1.2s .7s var(--ease) forwards;filter:drop-shadow(0 0 18px rgba(184,149,97,.35))}
+.loader-mark img{width:58%;position:relative;opacity:0;transform:scale(.9);animation:markIn .55s .25s var(--ease) forwards;filter:drop-shadow(0 0 18px rgba(184,149,97,.35))}
 @keyframes markIn{to{opacity:1;transform:none}}
 @keyframes spin{to{transform:rotate(360deg)}}
 .loader.open .loader-mark{opacity:0;transform:scale(1.15)}
@@ -535,7 +535,7 @@ main,.footer{overflow-x:clip}
 
 /* failsafe: if scripts are blocked, never leave the page hidden. A pure-CSS backstop
    behind both the inline and js/main.js timers above, so tightened to match them. */
-.loader{animation:loaderBail 0s 3s forwards}
+.loader{animation:loaderBail 0s 2.5s forwards}
 @keyframes loaderBail{to{visibility:hidden;pointer-events:none}}
 .reveal-all .fade,.reveal-all .reel{opacity:1;transform:none}
 .reveal-all .img-reveal .px{clip-path:none}
@@ -544,12 +544,12 @@ main,.footer{overflow-x:clip}
 .reveal-all body{overflow:auto}
 
 /* =====================================================================
-   Mandala (images/mandala.webp): three rings turn at different speeds
+   Mandala (images/mandala.png): three rings turn at different speeds
    ===================================================================== */
 @property --sweep{syntax:'<angle>';inherits:false;initial-value:0deg}
 .mandala{position:absolute;aspect-ratio:1;pointer-events:none}
 .mandala-turn{position:absolute;inset:0}
-.mandala i{position:absolute;inset:0;background:url(../images/mandala.webp) center/100% 100% no-repeat;will-change:transform}
+.mandala i{position:absolute;inset:0;background:url(../images/mandala.png) center/100% 100% no-repeat;will-change:transform}
 .mandala i:nth-child(1){-webkit-mask:radial-gradient(circle closest-side,#000 31%,transparent 31.6%);mask:radial-gradient(circle closest-side,#000 31%,transparent 31.6%);animation:mspin 60s linear infinite}
 .mandala i:nth-child(2){-webkit-mask:radial-gradient(circle closest-side,transparent 31%,#000 31.6%,#000 70.4%,transparent 71%);mask:radial-gradient(circle closest-side,transparent 31%,#000 31.6%,#000 70.4%,transparent 71%);animation:mspin 100s linear infinite reverse}
 .mandala i:nth-child(3){-webkit-mask:radial-gradient(circle closest-side,transparent 70.4%,#000 71%);mask:radial-gradient(circle closest-side,transparent 70.4%,#000 71%);animation:mspin 150s linear infinite}
@@ -562,10 +562,10 @@ main,.footer{overflow-x:clip}
    never shows at more than ~380px, so it gets its own smaller, harder-compressed
    source rather than the 820px one shared by the hero/stage/footer mandalas. */
 .loader-mandala{inset:0;width:100%;opacity:.8;-webkit-mask:conic-gradient(#000 var(--sweep),transparent 0);mask:conic-gradient(#000 var(--sweep),transparent 0)}
-.loader-mandala i{background-image:url(../images/mandala-sm.webp)}
-.loader-mandala.in{animation:sweep 2.1s cubic-bezier(.65,0,.25,1) forwards}
+.loader-mandala i{background-image:url(../images/mandala-sm.png)}
+.loader-mandala.in{animation:sweep 1s cubic-bezier(.65,0,.25,1) forwards}
 @keyframes sweep{to{--sweep:360deg}}
-.loader-mark::before{content:"";position:absolute;inset:18%;border-radius:50%;background:radial-gradient(circle,rgba(49,7,15,.95) 40%,rgba(49,7,15,0) 72%);z-index:1;opacity:0;animation:markIn 1s .9s var(--ease) forwards}
+.loader-mark::before{content:"";position:absolute;inset:18%;border-radius:50%;background:radial-gradient(circle,rgba(49,7,15,.95) 40%,rgba(49,7,15,0) 72%);z-index:1;opacity:0;animation:markIn .5s .35s var(--ease) forwards}
 .loader-mark img{z-index:2}
 
 /* Hero: large mandala on the right, turns a little more as you scroll */

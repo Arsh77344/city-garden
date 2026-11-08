@@ -24,7 +24,7 @@ No placeholder graphics remain. The guest-rooms panel was removed from the venue
 
 | File | Where it appears |
 |------|------------------|
-| mandala.webp | Loader, hero, services image, footer. Transparent gold on dark; the three rings turn at different speeds |
+| mandala.png | Loader, hero, services image, footer. Transparent gold on dark; the three rings turn at different speeds |
 | pattern-wall.jpg | Background of the reviews section |
 | art-elephant.webp, art-pavilion.webp | Either side of the contact heading (pavilion hidden on phones) |
 

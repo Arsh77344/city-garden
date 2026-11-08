@@ -26,6 +26,10 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preload" as="image" href="images/hero-poster.jpg" fetchpriority="high">
+<!-- The loader's mandala is a CSS background, so without this the browser can't even
+     discover it until style.css has downloaded and parsed -- a serial round-trip in
+     front of the first thing the visitor sees. -->
+<link rel="preload" as="image" href="images/mandala-sm.png">
 <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:wght@400;500;600&family=Pinyon+Script&display=swap" onload="this.onload=null;this.rel='stylesheet'">
 <noscript><link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:wght@400;500;600&family=Pinyon+Script&display=swap" rel="stylesheet"></noscript>
 <link rel="stylesheet" href="css/style.css">
@@ -35,7 +39,7 @@
 // doesn't wait on any other download. It used to wait 6s, which on a slow connection
 // was the thing actually keeping the splash screen (and so Largest Contentful Paint)
 // up that long -- main.js's own, faster timing never got a chance to run first.
-setTimeout(function(){var b=document.body;if(b&&!b.classList.contains('is-ready')){b.classList.remove('is-loading');b.classList.add('is-ready');document.documentElement.classList.add('reveal-all');var l=document.getElementById('loader');if(l)l.style.display='none';}},2200);</script>
+setTimeout(function(){var b=document.body;if(b&&!b.classList.contains('is-ready')){b.classList.remove('is-loading');b.classList.add('is-ready');document.documentElement.classList.add('reveal-all');var l=document.getElementById('loader');if(l)l.style.display='none';}},1700);</script>
 <!-- GOOGLE ANALYTICS — not active yet.
      To switch it on: delete this comment wrapper, and replace G-XXXXXXXXXX (twice) with
      your Measurement ID from Google Analytics > Admin > Data Streams.
@@ -94,9 +98,13 @@ setTimeout(function(){var b=document.body;if(b&&!b.classList.contains('is-ready'
          object-fit:cover crops the centre band on desktop exactly as a landscape file would,
          while phones get the full frame instead of a heavy upscale. hero-poster.jpg matches
          its first frame; images/hero.jpg stays landscape for og:image. -->
-    <video id="heroVideo" autoplay muted loop playsinline preload="auto" poster="images/hero-poster.jpg">
-      <source src="videos/hero.mp4" type="video/mp4">
-    </video>
+    <!-- preload="none" + data-src is deliberate: with preload="auto" the browser pulled
+         all 1.7MB of this down from the very first moment, while the splash loader was
+         still covering the screen and the video wasn't visible at all. On a slow
+         connection that ate the whole pipe and everything that actually needed to paint
+         first -- the stylesheet, the poster, main.js -- queued behind it. main.js now
+         attaches the source once the page is revealed; the poster covers the gap. -->
+    <video id="heroVideo" muted loop playsinline preload="none" poster="images/hero-poster.jpg" data-src="videos/hero.mp4"></video>
   </div>
   <div class="hero-shade"></div>
   <canvas class="dust" id="dust" aria-hidden="true"></canvas>

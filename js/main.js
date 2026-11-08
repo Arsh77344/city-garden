@@ -77,28 +77,37 @@
   /* ===================== Loader ===================== */
   const loader = $('#loader');
   let seen = null; try { seen = sessionStorage.getItem('cg-seen'); } catch (e) {}
+  // The hero video carries no src until the page is revealed, so that its 1.7MB isn't
+  // competing with the things that have to paint first. Every path to a visible page
+  // has to come through here, including the inline backstop's.
+  function startHeroVideo() {
+    const v = $('#heroVideo');
+    if (!v) return;
+    if (!v.src && v.dataset.src) v.src = v.dataset.src;
+    v.play().catch(() => {});
+  }
   function ready() {
     body.classList.remove('is-loading');
     body.classList.add('is-ready');
-    const v = $('#heroVideo'); if (v) v.play().catch(() => {});
-    setTimeout(() => loader.classList.add('done'), 1500);
+    startHeroVideo();
+    setTimeout(() => loader.classList.add('done'), 1000);
   }
   function openGates() { loader.classList.add('open'); setTimeout(ready, 500); try { sessionStorage.setItem('cg-seen', '1'); } catch (e) {} }
   if (body.classList.contains('is-ready')) {
     // The inline backstop in <head> already revealed the page before this script
-    // finished loading (a slow connection) -- nothing left to animate here.
+    // finished loading (a slow connection) -- nothing left to animate, but the video
+    // still needs its source attached, since that only ever happens from here.
     loader.classList.add('done');
+    startHeroVideo();
   } else if (reduce || seen) { loader.classList.add('done'); ready(); }
   else {
     requestAnimationFrame(() => requestAnimationFrame(() => $('.loader-mandala').classList.add('in')));
-    // Open the gates after a fixed, short pause for the mandala's draw-in animation.
-    // This used to wait for the window 'load' event (i.e. every image and the hero
-    // video fully downloaded) with only a 5.5s safety-net fallback -- on a slow
-    // connection that held the splash screen up for several seconds, which pushed
-    // Largest Contentful Paint out just as far, since the mandala was the only thing
-    // painted the whole time. A fixed delay reveals the real page at the same speed
-    // on every connection; the hero video keeps loading/playing underneath it.
-    setTimeout(openGates, 1400);
+    // Open the gates once the mandala's draw-in has mostly played. This used to wait
+    // for the window 'load' event -- every image and the hero video fully downloaded --
+    // which on a slow connection held the splash screen, and with it Largest Contentful
+    // Paint, for six seconds. It's now a fixed delay, kept just under the inline
+    // backstop in <head> so this nicer path still wins whenever main.js arrives in time.
+    setTimeout(openGates, 850);
   }
 
   /* ===================== Theme flow (page colour morphs between sections) ===================== */
