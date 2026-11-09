@@ -597,7 +597,10 @@ main,.footer{overflow-x:clip}
   /* The intro is driven from the inline script on phones and opens its gates at
      650ms, so the mandala's draw-in is shortened to finish just inside that rather
      than being cut off mid-sweep. */
-  .loader-mandala.in{animation-duration:.6s}
+  .loader-mandala.in{animation-duration:.45s}
+  /* The gates are the floor under mobile LCP: nothing real can be measured as painted
+     until they finish. Quicker here than on desktop for that reason. */
+  .door{transition-duration:.55s}
   /* The ring over the hero goes on phones. Measured on the live site it was the
      Largest Contentful Paint element three runs running -- 770ms waiting to be
      discovered, then 1,340ms of its own delayed fade -- so a decoration drawn at about
