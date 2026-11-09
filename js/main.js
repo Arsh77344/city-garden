@@ -87,9 +87,9 @@
   function ready() {
     body.classList.remove('is-loading');
     body.classList.add('is-ready');
-    setTimeout(() => loader.classList.add('done'), 1000);
+    setTimeout(() => loader.classList.add('done'), 1400);
   }
-  function openGates() { loader.classList.add('open'); setTimeout(ready, 500); try { sessionStorage.setItem('cg-seen', '1'); } catch (e) {} }
+  function openGates() { loader.classList.add('open'); setTimeout(ready, 700); try { sessionStorage.setItem('cg-seen', '1'); } catch (e) {} }
   if (window.__cgIntro) {
     // Phones: the inline script in <head> owns the intro, because it runs with the
     // HTML instead of waiting for this file to download. Nothing to do here.
@@ -105,7 +105,7 @@
     // which on a slow connection held the splash screen, and with it Largest Contentful
     // Paint, for six seconds. It's now a fixed delay, kept just under the inline
     // backstop in <head> so this nicer path still wins whenever main.js arrives in time.
-    setTimeout(openGates, 850);
+    setTimeout(openGates, 2600);
   }
 
   /* ===================== Theme flow (page colour morphs between sections) ===================== */

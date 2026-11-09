@@ -50,7 +50,7 @@
 // doesn't wait on any other download. It used to wait 6s, which on a slow connection
 // was the thing actually keeping the splash screen (and so Largest Contentful Paint)
 // up that long -- main.js's own, faster timing never got a chance to run first.
-setTimeout(function(){var b=document.body;if(b&&!b.classList.contains('is-ready')){b.classList.remove('is-loading');b.classList.add('is-ready');document.documentElement.classList.add('reveal-all');var l=document.getElementById('loader');if(l)l.style.display='none';}},1700);
+setTimeout(function(){var b=document.body;if(b&&!b.classList.contains('is-ready')){b.classList.remove('is-loading');b.classList.add('is-ready');document.documentElement.classList.add('reveal-all');var l=document.getElementById('loader');if(l)l.style.display='none';}},5200);
 // On phones the intro is driven from an inline script placed directly after the
 // loader markup below, so it starts the moment the loader exists -- see there.</script>
 <!-- GOOGLE ANALYTICS — not active yet.
@@ -106,9 +106,9 @@ setTimeout(function(){var b=document.body;if(b&&!b.classList.contains('is-ready'
     try{sessionStorage.setItem('cg-seen','1')}catch(e){}
     setTimeout(function(){
       b.classList.remove('is-loading');b.classList.add('is-ready');
-      setTimeout(function(){l.classList.add('done')},700);
-    },350);
-  },600);
+      setTimeout(function(){l.classList.add('done')},1400);
+    },700);
+  },2600);
 })();
 </script>
 

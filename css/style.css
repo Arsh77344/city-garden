@@ -106,12 +106,12 @@ p{margin:0 0 1.1rem;max-width:58ch}
 
 /* ---------- Loader ---------- */
 .loader{position:fixed;inset:0;z-index:200;display:grid;place-items:center}
-.door{position:absolute;top:0;bottom:0;width:50.2%;background:radial-gradient(circle at var(--x) 50%,#4a0c1b,var(--burg) 60%);transition:transform .9s var(--gate)}
+.door{position:absolute;top:0;bottom:0;width:50.2%;background:radial-gradient(circle at var(--x) 50%,#4a0c1b,var(--burg) 60%);transition:transform 1.4s var(--gate)}
 .door-l{left:0;--x:100%}.door-r{right:0;--x:0%}
 .door::after{content:"";position:absolute;top:0;bottom:0;width:1px;background:linear-gradient(transparent,var(--gold),transparent)}
 .door-l::after{right:0}.door-r::after{left:0}
 .loader-mark{position:relative;z-index:2;width:min(380px,82vw);aspect-ratio:1;display:grid;place-items:center;transition:opacity .5s,transform .9s var(--ease)}
-.loader-mark img{width:58%;position:relative;opacity:0;transform:scale(.9);animation:markIn .55s .25s var(--ease) forwards;filter:drop-shadow(0 0 18px rgba(184,149,97,.35))}
+.loader-mark img{width:58%;position:relative;opacity:0;transform:scale(.9);animation:markIn .9s .8s var(--ease) forwards;filter:drop-shadow(0 0 18px rgba(184,149,97,.35))}
 @keyframes markIn{to{opacity:1;transform:none}}
 @keyframes spin{to{transform:rotate(360deg)}}
 .loader.open .loader-mark{opacity:0;transform:scale(1.15)}
@@ -579,7 +579,7 @@ main,.footer{overflow-x:clip}
 
 /* failsafe: if scripts are blocked, never leave the page hidden. A pure-CSS backstop
    behind both the inline and js/main.js timers above, so tightened to match them. */
-.loader{animation:loaderBail 0s 2.5s forwards}
+.loader{animation:loaderBail 0s 5.5s forwards}
 
 /* Phones skip the splash altogether. It is the single biggest cost on a slow mobile
    connection: it holds back every real pixel, and because its mandala draws itself in
@@ -597,8 +597,6 @@ main,.footer{overflow-x:clip}
   /* The splash runs on phones too. It is kept brief here: the gates are a hard floor
      under Largest Contentful Paint, since nothing behind them counts as painted until
      they finish, so every extra 100ms of intro is 100ms on the metric. */
-  .loader-mandala.in{animation-duration:.5s}
-  .door{transition-duration:.6s}
 }
 @keyframes loaderBail{to{visibility:hidden;pointer-events:none}}
 .reveal-all .fade,.reveal-all .reel{opacity:1;transform:none}
@@ -653,9 +651,9 @@ body.deco .mandala:not(.loader-mandala) i::before{-webkit-mask-image:url(../imag
    it draws itself in over about a second, it was setting a floor under the whole
    page's score. The hero photograph gets counted instead, which is the honest answer. */
 .loader-mandala i::before{-webkit-mask-image:url(../images/mandala-sm.png);mask-image:url(../images/mandala-sm.png)}
-.loader-mandala.in{animation:sweep 1s cubic-bezier(.65,0,.25,1) forwards}
+.loader-mandala.in{animation:sweep 2.2s cubic-bezier(.65,0,.25,1) forwards}
 @keyframes sweep{to{--sweep:360deg}}
-.loader-mark::before{content:"";position:absolute;inset:18%;border-radius:50%;background:radial-gradient(circle,rgba(49,7,15,.95) 40%,rgba(49,7,15,0) 72%);z-index:1;opacity:0;animation:markIn .5s .35s var(--ease) forwards}
+.loader-mark::before{content:"";position:absolute;inset:18%;border-radius:50%;background:radial-gradient(circle,rgba(49,7,15,.95) 40%,rgba(49,7,15,0) 72%);z-index:1;opacity:0;animation:markIn .8s 1s var(--ease) forwards}
 .loader-mark img{z-index:2}
 
 /* Hero: large mandala on the right, turns a little more as you scroll */
