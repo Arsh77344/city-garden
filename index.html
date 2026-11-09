@@ -94,13 +94,21 @@ setTimeout(function(){var b=document.body;if(b&&!b.classList.contains('is-ready'
 (function(){
   if(!matchMedia('(max-width:699px)').matches)return;
   window.__cgIntro=1;
-  var l=document.getElementById('loader'),b=document.body;
+  var l=document.getElementById('loader'),b=document.body,m=document.querySelector('.loader-mandala');
   if(!l||!b)return;
-  // Phones show the page immediately; the splash is off for them (see the
-  // max-width:699px block in style.css, which explains what it cost and how to
-  // switch it back on). Desktop keeps the gated intro, driven from js/main.js.
-  l.classList.add('done');
-  b.classList.remove('is-loading');b.classList.add('is-ready');
+  var seen=null;try{seen=sessionStorage.getItem('cg-seen')}catch(e){}
+  if(seen||matchMedia('(prefers-reduced-motion: reduce)').matches){
+    l.classList.add('done');b.classList.remove('is-loading');b.classList.add('is-ready');return;
+  }
+  if(m)m.classList.add('in');
+  setTimeout(function(){
+    l.classList.add('open');
+    try{sessionStorage.setItem('cg-seen','1')}catch(e){}
+    setTimeout(function(){
+      b.classList.remove('is-loading');b.classList.add('is-ready');
+      setTimeout(function(){l.classList.add('done')},700);
+    },350);
+  },600);
 })();
 </script>
 

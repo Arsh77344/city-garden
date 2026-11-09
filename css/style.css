@@ -594,23 +594,11 @@ main,.footer{overflow-x:clip}
      the tail of a long headline lands about two seconds in. Phones get it as one quick
      move; the per-character choreography stays on desktop. */
   .ch>span{transition-duration:.45s;transition-delay:0s}
-  /* ---- The splash intro is OFF on phones. To bring it back, delete the two lines
-     marked SPLASH just below, and restore the gated sequence in the inline script
-     that sits just after the loader markup in index.html.
-     Why it is off: measured on the live site, four different intro timings all gave
-     a mobile Largest Contentful Paint of 4.4-4.8s, against 0.9s without it -- about
-     twenty points of the performance score. The gates are a hard floor, because
-     nothing behind them can count as painted until they finish, and on a throttled
-     connection the stylesheet alone lands around 0.9s before they can even start.
-     Desktop keeps the full intro, where the connection is not the constraint. ---- */
-  .loader{display:none}                /* SPLASH */
-  body.is-loading{overflow:visible}    /* SPLASH */
-  /* The ring over the hero goes on phones. Measured on the live site it was the
-     Largest Contentful Paint element three runs running -- 770ms waiting to be
-     discovered, then 1,340ms of its own delayed fade -- so a decoration drawn at about
-     288px on a phone, at half opacity over a night photograph, was setting the number
-     for the whole page. The footer and services rings are below the fold and stay. */
-  .hero-mandala{display:none}
+  /* The splash runs on phones too. It is kept brief here: the gates are a hard floor
+     under Largest Contentful Paint, since nothing behind them counts as painted until
+     they finish, so every extra 100ms of intro is 100ms on the metric. */
+  .loader-mandala.in{animation-duration:.5s}
+  .door{transition-duration:.6s}
 }
 @keyframes loaderBail{to{visibility:hidden;pointer-events:none}}
 .reveal-all .fade,.reveal-all .reel{opacity:1;transform:none}
@@ -630,8 +618,17 @@ main,.footer{overflow-x:clip}
    background it was being fetched as part of the first wave, and measured on the live
    site it was winning Largest Contentful Paint off the hero photo itself: 870ms of load
    delay, then 1,420ms of render delay for a fade nobody is waiting on. */
-.mandala i{position:absolute;inset:0;background:center/100% 100% no-repeat;will-change:transform}
-body.deco .mandala:not(.loader-mandala) i{background-image:url(../images/mandala.png)}
+/* Every mandala is painted as a flat gold fill cut out by the artwork used as a *mask*,
+   rather than as a background image. Two reasons. It looks the same -- the PNG is gold
+   line-art on transparency, so masking a gold fill with its alpha reproduces it, tonal
+   variation included. And a mask is not a "contentful" paint, so these rings can never
+   be chosen as the Largest Contentful Paint element. That mattered: as a background
+   image the hero's ring kept winning that metric off the hero photograph itself, which
+   is what got it hidden on phones in the first place. As a mask it can stay. */
+.mandala i{position:absolute;inset:0;will-change:transform}
+.mandala i::before{content:"";position:absolute;inset:0;background:var(--gold-lt);
+  -webkit-mask:url(../images/mandala.png) center/100% 100% no-repeat;
+          mask:url(../images/mandala.png) center/100% 100% no-repeat}
 .mandala i:nth-child(1){-webkit-mask:radial-gradient(circle closest-side,#000 31%,transparent 31.6%);mask:radial-gradient(circle closest-side,#000 31%,transparent 31.6%);animation:mspin 60s linear infinite}
 .mandala i:nth-child(2){-webkit-mask:radial-gradient(circle closest-side,transparent 31%,#000 31.6%,#000 70.4%,transparent 71%);mask:radial-gradient(circle closest-side,transparent 31%,#000 31.6%,#000 70.4%,transparent 71%);animation:mspin 100s linear infinite reverse}
 .mandala i:nth-child(3){-webkit-mask:radial-gradient(circle closest-side,transparent 70.4%,#000 71%);mask:radial-gradient(circle closest-side,transparent 70.4%,#000 71%);animation:mspin 150s linear infinite}
@@ -650,10 +647,7 @@ body.deco .mandala:not(.loader-mandala) i{background-image:url(../images/mandala
    Largest Contentful Paint element. That is what it kept being measured as, and since
    it draws itself in over about a second, it was setting a floor under the whole
    page's score. The hero photograph gets counted instead, which is the honest answer. */
-.loader-mandala i{background-image:none}
-.loader-mandala i::before{content:"";position:absolute;inset:0;background:var(--gold-lt);
-  -webkit-mask:url(../images/mandala-sm.png) center/100% 100% no-repeat;
-          mask:url(../images/mandala-sm.png) center/100% 100% no-repeat}
+.loader-mandala i::before{-webkit-mask-image:url(../images/mandala-sm.png);mask-image:url(../images/mandala-sm.png)}
 .loader-mandala.in{animation:sweep 1s cubic-bezier(.65,0,.25,1) forwards}
 @keyframes sweep{to{--sweep:360deg}}
 .loader-mark::before{content:"";position:absolute;inset:18%;border-radius:50%;background:radial-gradient(circle,rgba(49,7,15,.95) 40%,rgba(49,7,15,0) 72%);z-index:1;opacity:0;animation:markIn .5s .35s var(--ease) forwards}
