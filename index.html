@@ -26,9 +26,17 @@
 <!-- Fonts are served from this origin (see css/style.css), so there is no third-party
      connection to warm up and no render-blocking stylesheet from Google. Only the three
      faces used above the fold are preloaded; the rest load as the stylesheet needs them. -->
-<link rel="preload" as="font" type="font/woff2" href="fonts/cormorant-garamond-latin-400-normal.woff2" crossorigin>
-<link rel="preload" as="font" type="font/woff2" href="fonts/cormorant-garamond-latin-500-italic.woff2" crossorigin>
+<!-- Exactly the faces the first screenful renders in: the headline is Cormorant 500
+     normal with a 400 italic second line, the script line above it is Pinyon, and the
+     standfirst and buttons are DM Sans 400 and 500. Getting this list wrong is not
+     cosmetic -- it previously held 400-normal and 500-italic, the inverse of what the
+     headline actually uses, so those faces swapped in late and shifted the hero: a
+     0.4 Cumulative Layout Shift on desktop, where the score wants under 0.1. -->
+<link rel="preload" as="font" type="font/woff2" href="fonts/cormorant-garamond-latin-500-normal.woff2" crossorigin>
+<link rel="preload" as="font" type="font/woff2" href="fonts/cormorant-garamond-latin-400-italic.woff2" crossorigin>
+<link rel="preload" as="font" type="font/woff2" href="fonts/pinyon-script-latin-400-normal.woff2" crossorigin>
 <link rel="preload" as="font" type="font/woff2" href="fonts/dm-sans-latin-400-normal.woff2" crossorigin>
+<link rel="preload" as="font" type="font/woff2" href="fonts/dm-sans-latin-500-normal.woff2" crossorigin>
 <link rel="preload" as="image" href="images/hero-still.webp" type="image/webp" fetchpriority="high" media="(max-width:699px)">
 <link rel="preload" as="image" href="images/hero-still-wide.webp" type="image/webp" fetchpriority="high" media="(min-width:700px)">
 <!-- The loader's mandala is a CSS background, so without this the browser can't even
