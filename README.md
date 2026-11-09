@@ -18,7 +18,7 @@ All photos are in `images/`. Keep the same filename and just overwrite:
 
 No placeholder graphics remain. The guest-rooms panel was removed from the venue journey for want of a real photo of a room — re-add it when one exists. `g1.jpg`–`g7.jpg` were unused leftover placeholder files and have been deleted; the gallery's real photos are the `city-garden-*.jpg` files plus `g8.jpg`/`g9.jpg`.
 
-`images/hero-poster.jpg` is the hero **video's** poster (its own first frame) — don't hand-replace it, regenerate it from `videos/hero.mp4` if you change that video (see the Videos section below).
+The hero is a photograph, not a video: `images/hero-still.jpg`/`.webp` (tall crop, phones) and `images/hero-still-wide.jpg`/`.webp` (letterbox crop, wider screens). Both are cropped from `images/city-garden-walima-floral-entrance-varanasi.jpg`, shifted left of centre so another couple's welcome board stays out of frame. The looping hero video was removed: it had to be compressed hard enough to look poor, and cost 1.7MB. A slow zoom on the still stands in for it.
 
 ## Decorative artwork (already in place)
 
@@ -38,7 +38,6 @@ All four are cut from venue footage and encoded for the web (H.264, faststart).
 
 | File | Length | What it shows |
 |---|---|---|
-| hero.mp4 | 11.8s | Lawn, then the emerald canopy sweep, then the red floral decor. Muted. |
 | reel-1.mp4 | 8.7s | Emerald lounge: mandap reveal into the gold arcade |
 | reel-2.mp4 | 8.1s | The lawn with gold seating, then the catering counters |
 | reel-3.mp4 | 4.6s | Red floral decor and the garlanded walkway |
@@ -49,7 +48,7 @@ exactly as a pre-cropped landscape file would — same sharpness — while a pho
 frame instead of a 2.3x upscale. Every source clip was shot vertically, so cropping to
 landscape first would only have thrown away the mobile quality.
 
-Poster images are each video's own first frame: `hero-poster.jpg`, `reel-1.jpg`,
+Poster images are each video's own first frame: `reel-1.jpg`,
 `reel-2.jpg`, `reel-3.jpg`. If you replace a video, regenerate its poster to match:
 
 ```

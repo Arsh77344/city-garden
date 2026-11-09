@@ -29,11 +29,12 @@
 <link rel="preload" as="font" type="font/woff2" href="fonts/cormorant-garamond-latin-400-normal.woff2" crossorigin>
 <link rel="preload" as="font" type="font/woff2" href="fonts/cormorant-garamond-latin-500-italic.woff2" crossorigin>
 <link rel="preload" as="font" type="font/woff2" href="fonts/dm-sans-latin-400-normal.woff2" crossorigin>
-<link rel="preload" as="image" href="images/hero-poster.webp" imagesrcset="images/hero-poster.webp" type="image/webp" fetchpriority="high">
+<link rel="preload" as="image" href="images/hero-still.webp" type="image/webp" fetchpriority="high" media="(max-width:699px)">
+<link rel="preload" as="image" href="images/hero-still-wide.webp" type="image/webp" fetchpriority="high" media="(min-width:700px)">
 <!-- The loader's mandala is a CSS background, so without this the browser can't even
      discover it until style.css has downloaded and parsed -- a serial round-trip in
      front of the first thing the visitor sees. -->
-<link rel="preload" as="image" href="images/mandala-sm.png" media="(min-width:700px)">
+<link rel="preload" as="image" href="images/mandala-sm.png" fetchpriority="high">
 <link rel="stylesheet" href="css/style.css">
 <script>document.documentElement.classList.remove('no-js');
 // Backstop in case js/main.js is slow to arrive (e.g. a throttled connection) or
@@ -96,26 +97,20 @@ setTimeout(function(){var b=document.body;if(b&&!b.classList.contains('is-ready'
 <!-- ============ Hero ============ -->
 <section class="hero" id="home" data-theme="dark">
   <div class="hero-media" data-parallax="0.3">
-    <!-- Landing reel: videos/hero.mp4 (vertical 9:16, muted, 11.8s). Vertical is deliberate:
-         object-fit:cover crops the centre band on desktop exactly as a landscape file would,
-         while phones get the full frame instead of a heavy upscale. hero-poster.jpg matches
-         its first frame; images/hero.jpg stays landscape for og:image. -->
-    <!-- The still is a real image element, not the video's poster attribute. A video with no
-         src reports no Largest Contentful Paint candidate, so the biggest, earliest
-         thing on screen went uncounted and a decorative background ring became the LCP
-         element instead. As an <img> it is preloaded, fetchpriority=high, and paints as
-         soon as it lands. The video fades in over it once it actually starts playing.
-
-         preload="none" + data-src is deliberate: with preload="auto" the browser pulled
-         all 1.7MB of this down from the very first moment, while the splash loader was
-         still covering the screen and the video wasn't visible at all. On a slow
-         connection that ate the whole pipe and everything that actually needed to paint
-         first -- the stylesheet, the still, main.js -- queued behind it. -->
+    <!-- A photograph, not a video. The looping clip that used to sit here had to be
+         compressed hard enough to look blocky, and it cost 1.7MB for motion nobody
+         asked for; the slow zoom on a still gives the same sense of life for a
+         fraction of it. Art-directed per breakpoint, because no single frame suits
+         both shapes: phones get the floral entrance corridor cropped tall (shifted
+         left so another couple's named welcome board stays out of shot), wider screens
+         get the emerald-and-gold lounge, which is natively wide and stays sharp across
+         a desktop. Both are night shots that go dark at the top, under the nav. -->
     <picture>
-      <source type="image/webp" srcset="images/hero-poster.webp">
-      <img class="hero-still" src="images/hero-poster.jpg" alt="" width="640" height="1138" fetchpriority="high" decoding="async">
+      <source media="(min-width:700px)" type="image/webp" srcset="images/hero-still-wide.webp">
+      <source media="(min-width:700px)" srcset="images/hero-still-wide.jpg">
+      <source type="image/webp" srcset="images/hero-still.webp">
+      <img class="hero-still" src="images/hero-still.jpg" alt="Floral entrance corridor at City Garden, Varanasi, lit for a wedding" width="560" height="1230" fetchpriority="high" decoding="async">
     </picture>
-    <video id="heroVideo" muted loop playsinline preload="none" data-src="videos/hero.mp4"></video>
   </div>
   <div class="hero-shade"></div>
   <canvas class="dust" id="dust" aria-hidden="true"></canvas>

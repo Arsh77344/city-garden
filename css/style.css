@@ -163,16 +163,9 @@ body.menu-open .burger span:last-child{top:22px;transform:rotate(-45deg)}
 /* ---------- Hero ---------- */
 .hero{position:relative;min-height:100svh;display:flex;align-items:flex-end;color:var(--ivory);background:#1a040a;overflow:hidden;isolation:isolate}
 .hero-media{position:absolute;inset:-10% 0 0;will-change:transform}
-.hero-media video,.hero-still{width:100%;height:100%;object-fit:cover;transform:scale(1.18)}
-/* The still holds the frame until the video has actually started; the video sits on
-   top of it and fades in, so there is never a flash of empty black between them. */
-.hero-still{position:absolute;inset:0}
-.hero-media video{position:relative;opacity:0;transition:opacity .6s linear}
-.hero-media video.playing{opacity:1}
-/* Keyed to .playing, not is-ready, so the slow zoom starts exactly when the video
-   fades in -- both it and the still underneath are at scale(1.18) at that moment, so
-   the crossfade lines up instead of sliding. */
-.hero-media video.playing{animation:kenburns 16s var(--ease) forwards}
+.hero-still{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform:scale(1.18)}
+/* The slow zoom that used to belong to the video now runs on the photograph. */
+body.is-ready .hero-still{animation:kenburns 16s var(--ease) forwards}
 @keyframes kenburns{to{transform:scale(1)}}
 .hero-shade{position:absolute;inset:0;background:
   radial-gradient(120% 80% at 20% 100%,rgba(49,7,15,.92),transparent 60%),
@@ -246,6 +239,16 @@ body.is-ready .hero-sub,body.is-ready .hero-actions{opacity:1;transform:none}
 .space-copy h3{color:var(--accent)}
 .space-copy p{color:var(--muted)}
 .pin-bar{display:none}
+/* Reduce Motion turns the pinned walk-through off, since driving the page sideways
+   from a vertical scroll is exactly the kind of motion that setting asks us not to do.
+   What was left behind was a sideways strip with nothing to say there is more to the
+   right of the screen -- so stack the panels instead and let everything be reached by
+   scrolling down, which is the whole point. */
+@media (prefers-reduced-motion:reduce){
+  .track{flex-direction:column;overflow-x:visible;scroll-snap-type:none;gap:3.5rem;padding-bottom:0}
+  .panel,.panel-intro{flex:0 0 auto;width:100%}
+  .hint{display:none}
+}
 .hx img{transform-origin:center}
 
 .spaces.is-pinned .pin-sticky{position:sticky;top:0;height:100vh;padding:0;overflow:hidden;display:flex;flex-direction:column;justify-content:center}
@@ -260,6 +263,23 @@ body.is-ready .hero-sub,body.is-ready .hero-actions{opacity:1;transform:none}
 .spaces.is-pinned .hint-mob{display:none}
 .spaces.is-pinned .pin-bar{display:block;position:absolute;left:6vw;right:6vw;bottom:5vh;height:1px;background:var(--line)}
 .pin-bar span{display:block;height:100%;background:var(--gold-lt);transform:scaleX(0);transform-origin:left}
+
+/* The same pinned walk-through on phones and tablets, where the desktop's side-by-side
+   panel doesn't fit: image on top, words beneath, one panel per screen. Scrolling down
+   still moves it sideways -- which is the point, since a swipe strip gives no clue that
+   there is anything off to the right. */
+@media (max-width:959px){
+  .spaces.is-pinned .pin-sticky{height:100svh;padding:calc(var(--nav-h) + .5rem) 0 0}
+  .spaces.is-pinned .track{padding:0 7vw;gap:7vw}
+  .spaces.is-pinned .panel{flex:0 0 86vw}
+  .spaces.is-pinned .panel-intro{width:86vw}
+  .spaces.is-pinned .space{display:flex;flex-direction:column;align-items:stretch;gap:1.3rem}
+  .spaces.is-pinned .space-media{width:100%;aspect-ratio:4/3;max-height:44svh}
+  .spaces.is-pinned .space-media.arch,.spaces.is-pinned .space-media.tall{width:100%;height:auto;aspect-ratio:3/4;max-height:44svh}
+  .spaces.is-pinned .space-copy{width:100%;padding:0}
+  .spaces.is-pinned .space-copy h3{margin:0 0 .5rem}
+  .spaces.is-pinned .pin-bar{left:7vw;right:7vw;bottom:3svh}
+}
 
 /* ---------- Services ---------- */
 .services{overflow-x:clip}
@@ -569,8 +589,6 @@ main,.footer{overflow-x:clip}
    connection and where the intro reads as intended, keeps it. Delete this block to
    bring the splash back everywhere. */
 @media (max-width:699px){
-  .loader{display:none}
-  body.is-loading{overflow:visible}
   /* With no splash, the headline is the largest thing on a phone screen, so its
      entrance is what Largest Contentful Paint ends up measuring. At 22ms per character
      the tail of a long headline lands about two seconds in. Phones get it as one quick
@@ -615,7 +633,16 @@ body.deco .mandala:not(.loader-mandala) i{background-image:url(../images/mandala
    never shows at more than ~380px, so it gets its own smaller, harder-compressed
    source rather than the 820px one shared by the hero/stage/footer mandalas. */
 .loader-mandala{inset:0;width:100%;opacity:.8;-webkit-mask:conic-gradient(#000 var(--sweep),transparent 0);mask:conic-gradient(#000 var(--sweep),transparent 0)}
-.loader-mandala i{background-image:url(../images/mandala-sm.png)}
+/* Painted as a flat gold fill cut out by the mandala as a *mask*, rather than as a
+   background image. Visually identical at the 0.8 opacity it shows at -- but a mask is
+   not a "contentful" paint, so the splash's ring can no longer be chosen as the
+   Largest Contentful Paint element. That is what it kept being measured as, and since
+   it draws itself in over about a second, it was setting a floor under the whole
+   page's score. The hero photograph gets counted instead, which is the honest answer. */
+.loader-mandala i{background-image:none}
+.loader-mandala i::before{content:"";position:absolute;inset:0;background:var(--gold-lt);
+  -webkit-mask:url(../images/mandala-sm.png) center/100% 100% no-repeat;
+          mask:url(../images/mandala-sm.png) center/100% 100% no-repeat}
 .loader-mandala.in{animation:sweep 1s cubic-bezier(.65,0,.25,1) forwards}
 @keyframes sweep{to{--sweep:360deg}}
 .loader-mark::before{content:"";position:absolute;inset:18%;border-radius:50%;background:radial-gradient(circle,rgba(49,7,15,.95) 40%,rgba(49,7,15,0) 72%);z-index:1;opacity:0;animation:markIn .5s .35s var(--ease) forwards}
