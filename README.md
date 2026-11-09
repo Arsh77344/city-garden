@@ -232,7 +232,9 @@ What a phone downloads scrolling the whole page is about **5.5 MB**, down from ~
 The site honours `prefers-reduced-motion`. If a visitor has Reduce Motion on (iOS:
 Settings > Accessibility > Motion; Android: Settings > Accessibility > Remove animations),
 the marquee, the rotating mandalas, the parallax and the pinned venue scroll all stop.
-**That is deliberate** — that motion can make some people physically unwell.
+**That is deliberate** — that motion can make some people physically unwell. With the pin
+off, the venue panels stack vertically instead of becoming a sideways strip, so everything
+is still reachable by scrolling down.
 
 It used to also flatten every transition, which made the page feel broken rather than
 calm. Now only motion that *travels, loops or parallaxes* is cut; opacity fades still run,
@@ -244,6 +246,12 @@ If animations look dead on a device, check that setting before assuming a bug.
 One responsive site, no separate mobile file:
 - Phone (under 600px): stacked layout, swipe carousels, Call/WhatsApp bar at the bottom.
 - Tablet (600 to 959px): two-column services and contact, three reels side by side.
-- Laptop and desktop (960px and up): full menu, pinned horizontal venue journey, sticky services image, custom cursor.
+- Laptop and desktop (960px and up): full menu, sticky services image, custom cursor.
+- The pinned venue journey (scrolling down walks it sideways, then carries on down the
+  page) runs at 380px and up, so phones get it too — not just desktop.
+- The splash intro runs on screens 700px and up only. On phones it is off: it cost about
+  twenty points of mobile performance score, because nothing behind the gates counts as
+  painted until they finish. Both switches are marked `SPLASH` in the `max-width:699px`
+  block of `css/style.css`, with the reasoning and how to turn it back on.
 - Short laptop screens (1366x768): tighter spacing so headings and images fit the screen.
 - Large monitors (1600px and up): wider layout, 4-column gallery, type scales up.
