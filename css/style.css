@@ -594,13 +594,17 @@ main,.footer{overflow-x:clip}
      the tail of a long headline lands about two seconds in. Phones get it as one quick
      move; the per-character choreography stays on desktop. */
   .ch>span{transition-duration:.45s;transition-delay:0s}
-  /* The intro is driven from the inline script on phones and opens its gates at
-     650ms, so the mandala's draw-in is shortened to finish just inside that rather
-     than being cut off mid-sweep. */
-  .loader-mandala.in{animation-duration:.45s}
-  /* The gates are the floor under mobile LCP: nothing real can be measured as painted
-     until they finish. Quicker here than on desktop for that reason. */
-  .door{transition-duration:.55s}
+  /* ---- The splash intro is OFF on phones. To bring it back, delete the two lines
+     marked SPLASH just below, and restore the gated sequence in the inline script
+     that sits just after the loader markup in index.html.
+     Why it is off: measured on the live site, four different intro timings all gave
+     a mobile Largest Contentful Paint of 4.4-4.8s, against 0.9s without it -- about
+     twenty points of the performance score. The gates are a hard floor, because
+     nothing behind them can count as painted until they finish, and on a throttled
+     connection the stylesheet alone lands around 0.9s before they can even start.
+     Desktop keeps the full intro, where the connection is not the constraint. ---- */
+  .loader{display:none}                /* SPLASH */
+  body.is-loading{overflow:visible}    /* SPLASH */
   /* The ring over the hero goes on phones. Measured on the live site it was the
      Largest Contentful Paint element three runs running -- 770ms waiting to be
      discovered, then 1,340ms of its own delayed fade -- so a decoration drawn at about
