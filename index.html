@@ -43,30 +43,8 @@
 // was the thing actually keeping the splash screen (and so Largest Contentful Paint)
 // up that long -- main.js's own, faster timing never got a chance to run first.
 setTimeout(function(){var b=document.body;if(b&&!b.classList.contains('is-ready')){b.classList.remove('is-loading');b.classList.add('is-ready');document.documentElement.classList.add('reveal-all');var l=document.getElementById('loader');if(l)l.style.display='none';}},1700);
-// On phones the intro is driven from here rather than from js/main.js. main.js is a
-// separate download at the end of the body, and on a slow connection it was arriving
-// around a second in -- only then did the intro's own timer even start, so the hero
-// stayed behind the splash until about three seconds and Largest Contentful Paint
-// went with it. This runs with the HTML, waits for nothing, and drives exactly the
-// same classes and CSS animations, so the gates still open the way they always did.
-// Desktop keeps the main.js path, where the download isn't the bottleneck.
-if(matchMedia('(max-width:699px)').matches){window.__cgIntro=1;document.addEventListener('DOMContentLoaded',function(){
-  var l=document.getElementById('loader'),b=document.body,m=document.querySelector('.loader-mandala');
-  if(!l||!b)return;
-  var seen=null;try{seen=sessionStorage.getItem('cg-seen')}catch(e){}
-  if(seen||matchMedia('(prefers-reduced-motion: reduce)').matches){
-    l.classList.add('done');b.classList.remove('is-loading');b.classList.add('is-ready');return;
-  }
-  if(m)m.classList.add('in');
-  setTimeout(function(){
-    l.classList.add('open');
-    try{sessionStorage.setItem('cg-seen','1')}catch(e){}
-    setTimeout(function(){
-      b.classList.remove('is-loading');b.classList.add('is-ready');
-      setTimeout(function(){l.classList.add('done')},700);
-    },300);
-  },250);
-});}</script>
+// On phones the intro is driven from an inline script placed directly after the
+// loader markup below, so it starts the moment the loader exists -- see there.</script>
 <!-- GOOGLE ANALYTICS — not active yet.
      To switch it on: delete this comment wrapper, and replace G-XXXXXXXXXX (twice) with
      your Measurement ID from Google Analytics > Admin > Data Streams.
@@ -96,6 +74,35 @@ if(matchMedia('(max-width:699px)').matches){window.__cgIntro=1;document.addEvent
     <img src="images/logo.png" srcset="images/logo-m.png 520w, images/logo.png 661w" sizes="min(380px,82vw)" alt="" width="661" height="440">
   </div>
 </div>
+<script>
+// Phones drive the intro from right here, the moment the loader markup exists.
+// It used to live in js/main.js, a separate download at the end of the body that on a
+// throttled connection lands a second or more in -- only then did the sequence start,
+// so the hero stayed behind the gates and Largest Contentful Paint went with it.
+// Hanging it off DOMContentLoaded didn't help either: that waits for main.js too,
+// since a plain script tag at the end of the body blocks the parser. Inline and in
+// place, it waits for nothing. Same classes, same CSS animations as desktop, which
+// keeps its own main.js path where the download isn't the bottleneck.
+(function(){
+  if(!matchMedia('(max-width:699px)').matches)return;
+  window.__cgIntro=1;
+  var l=document.getElementById('loader'),b=document.body,m=document.querySelector('.loader-mandala');
+  if(!l||!b)return;
+  var seen=null;try{seen=sessionStorage.getItem('cg-seen')}catch(e){}
+  if(seen||matchMedia('(prefers-reduced-motion: reduce)').matches){
+    l.classList.add('done');b.classList.remove('is-loading');b.classList.add('is-ready');return;
+  }
+  if(m)m.classList.add('in');
+  setTimeout(function(){
+    l.classList.add('open');
+    try{sessionStorage.setItem('cg-seen','1')}catch(e){}
+    setTimeout(function(){
+      b.classList.remove('is-loading');b.classList.add('is-ready');
+      setTimeout(function(){l.classList.add('done')},700);
+    },300);
+  },250);
+})();
+</script>
 
 <div class="progress" id="progress"></div>
 <div class="cursor" id="cursor" aria-hidden="true"><span></span></div>
@@ -485,6 +492,6 @@ if(matchMedia('(max-width:699px)').matches){window.__cgIntro=1;document.addEvent
   </a>
 </div>
 
-<script src="js/main.js"></script>
+<script src="js/main.js" defer></script>
 </body>
 </html>
