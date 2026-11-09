@@ -627,8 +627,13 @@ main,.footer{overflow-x:clip}
    is what got it hidden on phones in the first place. As a mask it can stay. */
 .mandala i{position:absolute;inset:0;will-change:transform}
 .mandala i::before{content:"";position:absolute;inset:0;background:var(--gold-lt);
-  -webkit-mask:url(../images/mandala.png) center/100% 100% no-repeat;
-          mask:url(../images/mandala.png) center/100% 100% no-repeat}
+  -webkit-mask:center/100% 100% no-repeat;mask:center/100% 100% no-repeat}
+/* The artwork for the hero, services and footer rings is fetched only once the page
+   itself has loaded (main.js adds .deco). The hero's ring does not even begin to fade
+   in until a second after the page is revealed, and the other two are below the fold,
+   so none of them is worth competing with the hero photograph for bandwidth. The
+   loader's own ring is exempt below -- that one has to be there immediately. */
+body.deco .mandala:not(.loader-mandala) i::before{-webkit-mask-image:url(../images/mandala.png);mask-image:url(../images/mandala.png)}
 .mandala i:nth-child(1){-webkit-mask:radial-gradient(circle closest-side,#000 31%,transparent 31.6%);mask:radial-gradient(circle closest-side,#000 31%,transparent 31.6%);animation:mspin 60s linear infinite}
 .mandala i:nth-child(2){-webkit-mask:radial-gradient(circle closest-side,transparent 31%,#000 31.6%,#000 70.4%,transparent 71%);mask:radial-gradient(circle closest-side,transparent 31%,#000 31.6%,#000 70.4%,transparent 71%);animation:mspin 100s linear infinite reverse}
 .mandala i:nth-child(3){-webkit-mask:radial-gradient(circle closest-side,transparent 70.4%,#000 71%);mask:radial-gradient(circle closest-side,transparent 70.4%,#000 71%);animation:mspin 150s linear infinite}

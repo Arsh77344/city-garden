@@ -74,6 +74,13 @@
     if (img.complete && img.naturalWidth) ok(); else { img.addEventListener('load', ok); img.addEventListener('error', ok); }
   });
 
+  // The decorative ring artwork (hero, services, footer) is held back until the page
+  // has loaded, so its bytes never compete with the hero photograph that Largest
+  // Contentful Paint is measured on. See .mandala i::before in style.css.
+  const lightDeco = () => body.classList.add('deco');
+  if (document.readyState === 'complete') lightDeco();
+  else { addEventListener('load', lightDeco, { once: true }); setTimeout(lightDeco, 1500); }
+
   /* ===================== Loader ===================== */
   const loader = $('#loader');
   let seen = null; try { seen = sessionStorage.getItem('cg-seen'); } catch (e) {}
