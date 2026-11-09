@@ -42,7 +42,31 @@
 // doesn't wait on any other download. It used to wait 6s, which on a slow connection
 // was the thing actually keeping the splash screen (and so Largest Contentful Paint)
 // up that long -- main.js's own, faster timing never got a chance to run first.
-setTimeout(function(){var b=document.body;if(b&&!b.classList.contains('is-ready')){b.classList.remove('is-loading');b.classList.add('is-ready');document.documentElement.classList.add('reveal-all');var l=document.getElementById('loader');if(l)l.style.display='none';}},1700);</script>
+setTimeout(function(){var b=document.body;if(b&&!b.classList.contains('is-ready')){b.classList.remove('is-loading');b.classList.add('is-ready');document.documentElement.classList.add('reveal-all');var l=document.getElementById('loader');if(l)l.style.display='none';}},1700);
+// On phones the intro is driven from here rather than from js/main.js. main.js is a
+// separate download at the end of the body, and on a slow connection it was arriving
+// around a second in -- only then did the intro's own timer even start, so the hero
+// stayed behind the splash until about three seconds and Largest Contentful Paint
+// went with it. This runs with the HTML, waits for nothing, and drives exactly the
+// same classes and CSS animations, so the gates still open the way they always did.
+// Desktop keeps the main.js path, where the download isn't the bottleneck.
+if(matchMedia('(max-width:699px)').matches){window.__cgIntro=1;document.addEventListener('DOMContentLoaded',function(){
+  var l=document.getElementById('loader'),b=document.body,m=document.querySelector('.loader-mandala');
+  if(!l||!b)return;
+  var seen=null;try{seen=sessionStorage.getItem('cg-seen')}catch(e){}
+  if(seen||matchMedia('(prefers-reduced-motion: reduce)').matches){
+    l.classList.add('done');b.classList.remove('is-loading');b.classList.add('is-ready');return;
+  }
+  if(m)m.classList.add('in');
+  setTimeout(function(){
+    l.classList.add('open');
+    try{sessionStorage.setItem('cg-seen','1')}catch(e){}
+    setTimeout(function(){
+      b.classList.remove('is-loading');b.classList.add('is-ready');
+      setTimeout(function(){l.classList.add('done')},800);
+    },400);
+  },650);
+});}</script>
 <!-- GOOGLE ANALYTICS — not active yet.
      To switch it on: delete this comment wrapper, and replace G-XXXXXXXXXX (twice) with
      your Measurement ID from Google Analytics > Admin > Data Streams.

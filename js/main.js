@@ -83,10 +83,12 @@
     setTimeout(() => loader.classList.add('done'), 1000);
   }
   function openGates() { loader.classList.add('open'); setTimeout(ready, 500); try { sessionStorage.setItem('cg-seen', '1'); } catch (e) {} }
-  if (body.classList.contains('is-ready')) {
+  if (window.__cgIntro) {
+    // Phones: the inline script in <head> owns the intro, because it runs with the
+    // HTML instead of waiting for this file to download. Nothing to do here.
+  } else if (body.classList.contains('is-ready')) {
     // The inline backstop in <head> already revealed the page before this script
-    // finished loading (a slow connection) -- nothing left to animate, but the video
-    // still needs its source attached, since that only ever happens from here.
+    // finished loading (a slow connection) -- nothing left to animate.
     loader.classList.add('done');
   } else if (reduce || seen) { loader.classList.add('done'); ready(); }
   else {
