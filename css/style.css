@@ -420,6 +420,41 @@ body[data-theme="wine"] .reels::before{opacity:1}
 .dots .is-active i::after{animation:fill var(--dur,7s) linear forwards}
 @keyframes fill{to{transform:scaleX(1)}}
 
+/* ---------- Journal (cards shared by the home page and /blog/) ---------- */
+.journal-row{display:flex;gap:1.4rem;overflow-x:auto;scroll-snap-type:x mandatory;
+  padding:1rem var(--pad) 2.4rem;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.journal-row::-webkit-scrollbar{display:none}
+.jcard{flex:0 0 min(82vw,360px);scroll-snap-align:center;margin:0}
+.jcard a{display:flex;flex-direction:column;height:100%;text-decoration:none;color:inherit}
+.jcard-media{aspect-ratio:4/3;border-radius:6px 6px 0 0;overflow:hidden;background:rgba(127,127,127,.1)}
+.jcard-media img{width:100%;height:100%;object-fit:cover}
+/* The card body is the "paper": it sits under the photograph like a mounted print. */
+.jcard-body{flex:1;display:flex;flex-direction:column;padding:1.5rem 1.4rem 1.6rem;
+  background:var(--parch);color:var(--esp);border-radius:0 0 6px 6px;
+  box-shadow:0 18px 44px rgba(0,0,0,.26)}
+/* A touch darker than --terra: at 11px uppercase this needs 4.5:1 on the
+   parchment card, and the brand terracotta only reaches 4.3. */
+.jcard-meta{margin:0 0 .6rem;font-size:.7rem;font-weight:700;letter-spacing:.15em;
+  text-transform:uppercase;color:#9A4038}
+.jcard-title{font-family:var(--serif);font-weight:500;font-size:1.62rem;line-height:1.14;
+  letter-spacing:-.01em;margin:0 0 .6rem;color:var(--burg)}
+.jcard-excerpt{margin:0 0 1.2rem;font-size:.95rem;line-height:1.65;color:rgba(42,26,27,.78)}
+.jcard-more{margin-top:auto;display:inline-flex;align-items:center;gap:.5rem;
+  font-size:.82rem;font-weight:600;letter-spacing:.06em;color:#7A5A2B}
+.jcard-more svg{transition:transform .5s var(--ease)}
+.jcard{transition:transform .6s var(--ease)}
+.jcard a:hover .jcard-more svg{transform:translateX(5px)}
+@media (hover:hover){.jcard:hover{transform:translateY(-6px)}}
+.journal-cta{margin-top:.4rem}
+/* Three cards fit a desktop row, so the slider becomes a grid rather than asking
+   people to scroll sideways through content that already fits. */
+@media (min-width:900px){
+  .journal-row{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem;
+    overflow:visible;padding:1.5rem 0 2.6rem;width:min(var(--maxw),100% - var(--pad)*2);margin-inline:auto}
+  .jcard{flex:none}
+  .jcard-title{font-size:1.5rem}
+}
+
 /* ---------- Contact ---------- */
 .contact::before{content:"";position:absolute;inset:0;background:radial-gradient(55% 45% at 85% 85%,rgba(184,149,97,.14),transparent 70%);opacity:0;transition:opacity 1.2s;pointer-events:none}
 body[data-theme="parch"] .contact::before{opacity:1}
