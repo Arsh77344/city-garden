@@ -697,10 +697,17 @@ body.is-ready .hero-mandala{opacity:.5}
 
 /* Services sticky image, footer */
 @media (min-width:960px){.stage-mandala{left:50%;top:50%;width:150%;transform:translate(-50%,-50%);opacity:.32}}
-.footer-mandala{left:50%;bottom:-48%;width:min(1000px,140vw);transform:translateX(-50%);opacity:.2}
-.footer-mandala i:nth-child(1){animation-duration:28s}
-.footer-mandala i:nth-child(2){animation-duration:44s}
-.footer-mandala i:nth-child(3){animation-duration:66s}
+/* The footer ring was turning but nobody could tell: at opacity .2, and sunk far
+   enough that only the outermost -- and most rotationally symmetric -- band showed,
+   it changed the screen by under 1/255 over four seconds, where the hero ring manages
+   2.4. Lifted, brightened and sped up until the movement actually reads. */
+.footer-mandala{left:50%;bottom:-34%;width:min(1000px,140vw);transform:translateX(-50%);opacity:.34}
+.footer-mandala i:nth-child(1){animation-duration:20s}
+.footer-mandala i:nth-child(2){animation-duration:32s}
+.footer-mandala i:nth-child(3){animation-duration:48s}
+/* A phone shows a smaller slice of the ring, so it needs a little more of it to
+   read as turning at all. */
+@media (max-width:699px){.footer-mandala{bottom:-26%;opacity:.42}}
 
 /* =====================================================================
    Reviews: textile wall background (images/pattern-wall.jpg)
