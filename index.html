@@ -257,6 +257,9 @@ setTimeout(function(){var b=document.body;if(b&&!b.classList.contains('is-ready'
 
 
     <div class="svc-grid">
+      <!-- The desktop ring lives inside .svc-stage, which is display:none below 960px,
+           so phones had no ring in this section at all. This one is phone-only. -->
+      <div class="mandala svc-mandala-m" aria-hidden="true"><i></i><i></i><i></i></div>
       <div class="svc-list">
         <div class="svc-head">
       <h2 class="display" data-split>Taken care of, start to finish.</h2>

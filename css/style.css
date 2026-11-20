@@ -287,6 +287,7 @@ body.is-ready .hero-sub,body.is-ready .hero-actions{opacity:1;transform:none}
 body[data-theme="green"] .services::before{opacity:1}
 .svc-head{position:relative;margin-bottom:2rem}
 .svc-grid{position:relative;display:grid;gap:4rem}
+.svc-list{position:relative;z-index:1}
 .svc-item{padding:0}
 .svc-item h3{color:var(--accent)}
 .svc-item p{color:var(--muted)}
@@ -694,9 +695,27 @@ body.deco .mandala:not(.loader-mandala) i::before{-webkit-mask-image:url(../imag
 /* Hero: large mandala on the right, turns a little more as you scroll */
 .hero-mandala{z-index:1;right:-16vw;top:50%;width:min(70vw,860px);margin-top:calc(min(70vw,860px)/-2);opacity:0;transition:opacity 2.5s 1s;transform:rotate(var(--scroll-rot,0deg))}
 body.is-ready .hero-mandala{opacity:.5}
+/* On a phone the hero photograph is full-bleed and busy -- flowers, foliage, lanterns --
+   and gold line-art laid over it simply disappears, which reads as "the ring isn't
+   turning" when in fact it is. Moved onto the one calm, dark area in the frame (the
+   carpet at the foot of the corridor) and brightened, so the movement has something
+   plain to turn against. */
+@media (max-width:699px){
+  .hero-mandala{right:-26vw;top:auto;bottom:-26vw;margin-top:0;width:96vw}
+  body.is-ready .hero-mandala{opacity:.62}
+}
 
 /* Services sticky image, footer */
 @media (min-width:960px){.stage-mandala{left:50%;top:50%;width:150%;transform:translate(-50%,-50%);opacity:.32}}
+/* Phones get their own ring in the services section. The desktop one is a child of
+   .svc-stage, and .svc-stage is display:none below 960px -- a child of a hidden
+   parent cannot be brought back, so this is a separate element rather than a
+   re-positioning of that one, which keeps the desktop layout untouched. */
+.svc-mandala-m{left:50%;top:34%;width:158vw;transform:translateX(-50%);opacity:.3;z-index:0}
+.svc-mandala-m i:nth-child(1){animation-duration:22s}
+.svc-mandala-m i:nth-child(2){animation-duration:34s}
+.svc-mandala-m i:nth-child(3){animation-duration:52s}
+@media (min-width:960px){.svc-mandala-m{display:none}}
 /* The footer ring was turning but nobody could tell: at opacity .2, and sunk far
    enough that only the outermost -- and most rotationally symmetric -- band showed,
    it changed the screen by under 1/255 over four seconds, where the hero ring manages
