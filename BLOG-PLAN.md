@@ -152,8 +152,11 @@ The draft sent for approval must list every link it used.
   closing City Garden paragraph.
 - At least one list or short table. Those get pulled into AI answers and featured
   snippets more than prose does.
-- A `<figure>` image cropped 4:3 from the existing `images/` library, with `-m`
-  variants and WebP, same as the published posts.
+- A `<figure>` image, 4:3, with `-m` variants and WebP. **`IMAGES.md` decides which
+  kind** — a real venue photograph where the subject genuinely matches, a generated
+  brand card (`tools/make-card-image.py`) where the post is about a decision rather
+  than a scene, licensed stock only as a last resort and never with alt text claiming
+  it is City Garden. Never reuse a crop already used on another post.
 - Byline date is the publish date.
 
 ---
@@ -220,4 +223,5 @@ Each new post also needs:
 - A card on `blog/index.html`, newest first.
 - The "More from the journal" rows on the other posts updated.
 - A `<url>` entry in `sitemap.xml`.
-- Images at `images/blog-<word>.{jpg,webp}` and `-m` variants, 760x570 and 480x360.
+- Images at `images/blog-<word>.{jpg,webp}` and `-m` variants, 760x570 and 480x360,
+  chosen by the rules in `IMAGES.md`.
