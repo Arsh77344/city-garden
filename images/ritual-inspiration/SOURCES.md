@@ -41,3 +41,11 @@ but small — these are widely-syndicated-looking stock, not obviously agency wo
 ---
 
 ## Recorded images
+
+### `blog-budget`
+- **Shows:** A hand with red bangles and henna holding another hand as marigold petals and grains fall onto it
+- **Source:** https://www.pexels.com/photo/12163288/
+- **Platform:** pexels
+- **Photographer:** Camera Treasure
+- **Licence:** Pexels License -- commercial use permitted, no attribution required
+- **Added:** 2026-11-21

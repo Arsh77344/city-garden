@@ -163,7 +163,7 @@ The draft sent for approval must list every link it used.
 
 ## Calendar
 
-Three posts are live. `todo` rows are the queue, in order. Categories: **W** wedding
+Four posts are live. `todo` rows are the queue, in order. Categories: **W** wedding
 function, **P** planning, **C** other celebration.
 
 | # | Date | Cat | Working title | Target keywords | Status |
@@ -171,7 +171,7 @@ function, **P** planning, **C** other celebration.
 | 1 | 2026-11-12 | W | Lawn or banquet hall: how to choose | marriage lawn in varanasi, banquet hall in varanasi | done |
 | 2 | 2026-11-06 | P | A wedding timeline that holds up | wedding planner varanasi | done |
 | 3 | 2026-10-30 | P | Questions worth asking before you book | wedding venues in varanasi | done |
-| 4 | 2026-11-28 | P | Indian wedding budget: where the money actually goes | wedding cost in varanasi, indian wedding budget | todo |
+| 4 | 2026-11-21 | P | Indian wedding budget: where the money actually goes | wedding cost in varanasi, indian wedding budget | done |
 | 5 | 2026-12-05 | P | The guest list problem: kitne log aayenge | wedding guest list india | todo |
 | 6 | 2026-12-12 | P | Where will everyone stay? Accommodation for outstation guests | wedding accommodation varanasi | todo |
 | 7 | 2026-12-19 | W | Haldi ceremony: planning the yellow morning | haldi ceremony planning, haldi function | todo |
